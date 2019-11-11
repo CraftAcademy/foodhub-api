@@ -1,7 +1,18 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/sverrir/projects/foodhub-api/app/jobs/application_job.rb": [
+      "/Users/yasmineezequiel/final_project/foodhub-api/app/mailers/application_mailer.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/yasmineezequiel/final_project/foodhub-api/app/models/application_record.rb": [
+        0,
+        0,
+        0
+      ],
+      "/Users/yasmineezequiel/final_project/foodhub-api/app/jobs/application_job.rb": [
         0,
         null,
         null,
@@ -10,34 +21,37 @@
         null,
         0
       ],
-      "/home/sverrir/projects/foodhub-api/app/channels/application_cable/channel.rb": [
+      "/Users/yasmineezequiel/final_project/foodhub-api/app/controllers/application_controller.rb": [
+        0,
+        0
+      ],
+      "/Users/yasmineezequiel/final_project/foodhub-api/app/controllers/recipes_controller.rb": [
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
         0,
         0,
         0,
         0
       ],
-      "/home/sverrir/projects/foodhub-api/app/channels/application_cable/connection.rb": [
+      "/Users/yasmineezequiel/final_project/foodhub-api/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/sverrir/projects/foodhub-api/app/controllers/application_controller.rb": [
-        0,
-        0
-      ],
-      "/home/sverrir/projects/foodhub-api/app/models/application_record.rb": [
-        0,
-        0,
-        0
-      ],
-      "/home/sverrir/projects/foodhub-api/app/mailers/application_mailer.rb": [
+      "/Users/yasmineezequiel/final_project/foodhub-api/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ]
     },
-    "timestamp": 1573379143
+    "timestamp": 1573502268
   }
 }
