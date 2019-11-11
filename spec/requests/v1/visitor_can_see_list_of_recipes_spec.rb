@@ -28,17 +28,17 @@ RSpec.describe 'GET articles index' do
     end
   end
 
-  describe 'Error if database contains no recipes' do 
+  describe 'Message if database contains no recipes' do 
     before do
       get '/v1/articles'
       headers: headers
     end
 
-    it 'returns error status' do
+    it 'returns response status of 200' do
       expect(response.status).to eq 200
     end
 
-    it 'returns error message' do
+    it 'returns message about no recipes' do
       expect(response_json["message"]).to eq "There are no recipes here"
     end
   end
