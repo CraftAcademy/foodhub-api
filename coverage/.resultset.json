@@ -1,7 +1,46 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/sverrir/projects/foodhub-api/app/jobs/application_job.rb": [
+      "/Users/thomas_ochman/Projects/foodhub-api/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/thomas_ochman/Projects/foodhub-api/app/controllers/v1/recipes_controller.rb": [
+        null,
+        null,
+        1,
+        1,
+        4,
+        4,
+        4,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        4,
+        null,
+        null
+      ],
+      "/Users/thomas_ochman/Projects/foodhub-api/app/models/recipe.rb": [
+        1,
+        null
+      ],
+      "/Users/thomas_ochman/Projects/foodhub-api/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/thomas_ochman/Projects/foodhub-api/app/mailers/application_mailer.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/thomas_ochman/Projects/foodhub-api/app/jobs/application_job.rb": [
         0,
         null,
         null,
@@ -10,34 +49,19 @@
         null,
         0
       ],
-      "/home/sverrir/projects/foodhub-api/app/channels/application_cable/channel.rb": [
+      "/Users/thomas_ochman/Projects/foodhub-api/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/sverrir/projects/foodhub-api/app/channels/application_cable/connection.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/home/sverrir/projects/foodhub-api/app/controllers/application_controller.rb": [
-        0,
-        0
-      ],
-      "/home/sverrir/projects/foodhub-api/app/models/application_record.rb": [
-        0,
-        0,
-        0
-      ],
-      "/home/sverrir/projects/foodhub-api/app/mailers/application_mailer.rb": [
+      "/Users/thomas_ochman/Projects/foodhub-api/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ]
     },
-    "timestamp": 1573379143
+    "timestamp": 1573500534
   }
 }
