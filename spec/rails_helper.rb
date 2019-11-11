@@ -27,4 +27,6 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ResponseJSON, type: :request
   config.include Shoulda::Matchers::ActiveRecord, type: :model
+  config.include Shoulda::Matchers::ActiveModel, type: :model
+
 end

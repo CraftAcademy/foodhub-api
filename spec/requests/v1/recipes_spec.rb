@@ -33,8 +33,8 @@ RSpec.describe 'V1::Recipes', type: :request do
              }
       end
 
-      it 'returns 401 status' do
-        expect(response).to have_http_status 401
+      it 'returns 400 status' do
+        expect(response).to have_http_status 400
       end
 
       it 'returns success message' do

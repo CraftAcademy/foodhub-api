@@ -1,6 +1,18 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/thomas_ochman/Projects/foodhub-api/app/models/recipe.rb": [
+        1,
+        1,
+        1,
+        1,
+        null
+      ],
+      "/Users/thomas_ochman/Projects/foodhub-api/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
       "/Users/thomas_ochman/Projects/foodhub-api/app/controllers/application_controller.rb": [
         1,
         null
@@ -12,26 +24,17 @@
         1,
         4,
         4,
+        2,
+        null,
+        2,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
         4,
         null,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
-        4,
-        null,
-        null
-      ],
-      "/Users/thomas_ochman/Projects/foodhub-api/app/models/recipe.rb": [
-        1,
-        null
-      ],
-      "/Users/thomas_ochman/Projects/foodhub-api/app/models/application_record.rb": [
-        1,
-        1,
         null
       ],
       "/Users/thomas_ochman/Projects/foodhub-api/app/mailers/application_mailer.rb": [
@@ -62,6 +65,6 @@
         0
       ]
     },
-    "timestamp": 1573500534
+    "timestamp": 1573505242
   }
 }

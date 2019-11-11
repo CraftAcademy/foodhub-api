@@ -6,13 +6,13 @@ class V1::RecipesController < ApplicationController
     if recipe.persisted?
       render json: { message: 'The recipe was successfully created.' }
     else
-      render json: { error_message: 'Unable to create recipe' }, status: 401
+      render json: { error_message: 'Unable to create recipe' }, status: 400
     end
   end
 
   private
 
   def recipe_params
-    params.permit(:recipe).permit(:title, :ingredients, :directions)
+    params.require(:recipe).permit(:title, :ingredients, :directions)
   end
 end
