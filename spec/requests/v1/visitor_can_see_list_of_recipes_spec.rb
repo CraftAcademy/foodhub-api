@@ -1,8 +1,10 @@
 RSpec.describe 'GET articles index' do 
   describe 'Listing articles' do 
     let!(:recipes) { 2.times { create(:recipe) } }
+    let(:headers) {{ HTTP_ACCEPT: "application/json" }
     before do
       get '/v1/recipes'
+      headers: headers
     end
 
     it 'API returns 2 recipes' do
@@ -29,6 +31,7 @@ RSpec.describe 'GET articles index' do
   describe 'Error if database contains no recipes' do 
     before do
       get '/v1/articles'
+      headers: headers
     end
 
     it 'returns error status' do
