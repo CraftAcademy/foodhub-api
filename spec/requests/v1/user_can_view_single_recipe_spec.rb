@@ -1,26 +1,29 @@
 RSpec.describe 'GET specific recipe' do
   describe 'user can view a specific recipe' do
-    let(:recipe) { create(:recipe) }
     let(:headers) {{ HTTP_ACCEPT: 'application/json' }}
+    let(:recipe) { create(:recipe, 
+      title: 'Cookies', 
+      ingredients: 'Cookie ingredients, chocolate chips.', 
+      directions: 'Make the cookies.') }
 
     before do
-      get '/v1/recipes/#{recipe.id}', headers: headers
+      get "/v1/recipes/#{recipe.id}", headers: headers
     end
 
     it 'Returns a successful response status' do
       expect(response).to have_http_status 200
     end
     
-    it 'Recipe has a title' do   
-      expect(response_json['recipe']['title']).to eq Recipe.last.title
+    it 'Recipe has a title' do
+      expect(response_json['recipe']['title']).to eq 'Cookies'
     end
 
     it 'Recipe has content' do
-      expect(response_json['recipe']['ingredients']).to eq Recipe.last.ingredients
+      expect(response_json['recipe']['ingredients']).to eq 'Cookie ingredients, chocolate chips.'
     end
 
     it 'Recipe has directions' do
-      expect(response_json['recipe']['directions']).to eq Recipe.last.directions
+      expect(response_json['recipe']['directions']).to eq 'Make the cookies.'
     end
   end
 
