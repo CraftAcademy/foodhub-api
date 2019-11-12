@@ -7,8 +7,8 @@ class V1::RecipesController < ApplicationController
 
     if recipes.empty?
       render json: { message: 'There are no recipes here' }
-    else 
-      render json: { "recipes": recipes }
+    else
+      render json: recipes, each_serializer: Recipes::IndexSerializer
     end
   end
 
