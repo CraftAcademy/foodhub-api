@@ -24,7 +24,6 @@ RSpec.describe 'GET recipes index' do
     end
 
     it 'Returns a status of 200' do
-      binding.pry
       expect(response.status).to eq 200
     end
   end
