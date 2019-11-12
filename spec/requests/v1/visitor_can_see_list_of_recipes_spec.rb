@@ -35,7 +35,7 @@ RSpec.describe 'GET recipes index' do
     end
 
     it 'returns response status of 200' do
-      expect(response.status).to eq 200
+      expect(response).to have_http_status 200
     end
 
     it 'returns message about no recipes' do
