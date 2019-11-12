@@ -4,9 +4,9 @@ class V1::RecipesController < ApplicationController
   def create
     recipe = Recipe.create(recipe_params)
     if recipe.persisted?
-      render json: { message: 'The recipe was successfully created.' }
+      render json: { message: 'The recipe was successfully created.' }, status: 201
     else
-      render json: { error_message: 'Unable to create recipe' }, status: 400
+      render json: { error_message: 'Unable to create recipe' }, status: 422
     end
   end
 
