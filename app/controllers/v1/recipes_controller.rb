@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class V1::RecipesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
     recipes = Recipe.all
@@ -17,17 +18,17 @@ class V1::RecipesController < ApplicationController
   end
 
   def show
-    if Recipe.exists?(id:params[:id])
-      recipe = Recipe.find(params[:id])
-      render json: recipe, serializer: Recipes::IndexSerializer
-    else
-      render json: { error_message: 'The recipe could not be found'}, status: 404
-    end
+    recipe = Recipe.find(params[:id])
+    render json: recipe, serializer: Recipes::IndexSerializer
   end
 
   private
 
   def recipe_params
     params.require(:recipe).permit(:title, :ingredients, :directions)
+  end
+
+  def record_not_found
+    render json: { error_message: 'The recipe could not be found'}, status: 404
   end
 end
