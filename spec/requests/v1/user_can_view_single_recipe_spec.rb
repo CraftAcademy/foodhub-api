@@ -7,7 +7,8 @@ RSpec.describe 'GET specific recipe' do
       get "/v1/recipes/#{recipe.id}", headers: headers
     end
 
-    it 'returns one article' do
+    it 'returns one recipe' do
+      binding.pry
       expect(response_json.count)
     end
     

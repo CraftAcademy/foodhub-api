@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class V1::RecipesController < ApplicationController
+
+  def index
+    recipes = Recipe.all
+
+    render json: recipes, each_serializer: Recipes::IndexSerializer
+  end
+
   def create
     recipe = Recipe.create(recipe_params)
     if recipe.persisted?
