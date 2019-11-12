@@ -39,7 +39,7 @@ RSpec.describe 'GET recipes index' do
     end
 
     it 'returns message about no recipes' do
-      expect(response_json["message"]).to eq "There are no recipes here"
+      expect(response_json["recipes"]).to eq []
     end
   end
 end
