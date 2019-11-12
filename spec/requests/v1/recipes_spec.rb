@@ -54,7 +54,8 @@ RSpec.describe 'V1::Recipes', type: :request do
         properties: {
           title: { type: :string },
           ingredients: { type: :string },
-          directions: { type: :string }
+          directions: { type: :string },
+          portions: { type: :integer },
         },
         required: %w[title ingredients directions]
       }
@@ -63,7 +64,8 @@ RSpec.describe 'V1::Recipes', type: :request do
         let(:recipe) do
           { title: 'Meatballs',
             ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
-            directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)' }
+            directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)' },
+            portions: '4'
         end
         run_test! do
           expect(response_json['message']).to eq 'The recipe was successfully created.'
@@ -74,7 +76,8 @@ RSpec.describe 'V1::Recipes', type: :request do
         let(:recipe) do
           { title: '',
             ingredients: '',
-            directions: '' }
+            directions: '',
+            portions: '' }
         end
         run_test! do
           expect(response_json['error_message']).to eq 'Unable to create recipe'
