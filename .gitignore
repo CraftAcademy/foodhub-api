@@ -23,3 +23,8 @@
 
 # Coveralls token key
 .coveralls.yml
+
+# Ignore coverage files
+
+coverage
+coverage/*

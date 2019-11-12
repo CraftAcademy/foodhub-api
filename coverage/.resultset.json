@@ -1,57 +1,81 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/yasmineezequiel/final_project/foodhub-api/app/mailers/application_mailer.rb": [
+      "/home/sverrir/projects/foodhub-api/app/models/recipe.rb": [
+        1,
+        1,
+        1,
+        1,
+        null
+      ],
+      "/home/sverrir/projects/foodhub-api/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/sverrir/projects/foodhub-api/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/home/sverrir/projects/foodhub-api/app/controllers/v1/recipes_controller.rb": [
+        null,
+        null,
+        1,
+        null,
+        1,
+        7,
+        null,
+        7,
+        2,
+        null,
+        5,
+        null,
+        null,
+        null,
+        1,
+        6,
+        6,
+        3,
+        null,
+        3,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        6,
+        null,
+        null
+      ],
+      "/home/sverrir/projects/foodhub-api/app/jobs/application_job.rb": [
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0
+      ],
+      "/home/sverrir/projects/foodhub-api/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ],
-      "/Users/yasmineezequiel/final_project/foodhub-api/app/models/application_record.rb": [
-        0,
-        0,
-        0
-      ],
-      "/Users/yasmineezequiel/final_project/foodhub-api/app/jobs/application_job.rb": [
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        0
-      ],
-      "/Users/yasmineezequiel/final_project/foodhub-api/app/controllers/application_controller.rb": [
-        0,
-        0
-      ],
-      "/Users/yasmineezequiel/final_project/foodhub-api/app/controllers/recipes_controller.rb": [
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
+      "/home/sverrir/projects/foodhub-api/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/Users/yasmineezequiel/final_project/foodhub-api/app/channels/application_cable/connection.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/Users/yasmineezequiel/final_project/foodhub-api/app/channels/application_cable/channel.rb": [
+      "/home/sverrir/projects/foodhub-api/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
         0
       ]
     },
-    "timestamp": 1573502268
+    "timestamp": 1573551880
   }
 }

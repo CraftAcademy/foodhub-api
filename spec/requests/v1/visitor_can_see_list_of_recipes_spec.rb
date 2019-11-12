@@ -1,26 +1,26 @@
 RSpec.describe 'GET articles index' do 
   describe 'Listing articles' do 
     let!(:recipes) { 2.times { create(:recipe) } }
-    let(:headers) {{ HTTP_ACCEPT: "application/json" }
+    let(:headers) {{ HTTP_ACCEPT: "application/json" }}
     before do
-      get '/v1/recipes'
+      get '/v1/recipes',
       headers: headers
     end
 
     it 'API returns 2 recipes' do
-      expect(response_json.count).to eq 2
+      expect(response_json["recipes"].count).to eq 2
     end
 
     it 'Recipe has a title' do
-      expect(response_json.first['title']).to eq Article.first.title
+      expect(response_json["recipes"].first['title']).to eq Recipe.first.title
     end
 
     it 'Article has ingredients' do
-      expect(response_json.first['ingredients']).to eq Article.first.ingredients
+      expect(response_json["recipes"].first['ingredients']).to eq Recipe.first.ingredients
     end
 
     it 'Article has instructions' do
-      expect(response_json.first['instructions']).to eq Article.first.instructions
+      expect(response_json["recipes"].first['directions']).to eq Recipe.first.directions
     end
 
     it 'Returns a status of 200' do
@@ -30,7 +30,7 @@ RSpec.describe 'GET articles index' do
 
   describe 'Message if database contains no recipes' do 
     before do
-      get '/v1/articles'
+      get '/v1/recipes',
       headers: headers
     end
 
