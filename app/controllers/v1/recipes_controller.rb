@@ -5,11 +5,7 @@ class V1::RecipesController < ApplicationController
   def index
     recipes = Recipe.all
 
-    if recipes.empty?
-      render json: recipes, each_serializer: Recipes::IndexSerializer
-    else
-      render json: recipes, each_serializer: Recipes::IndexSerializer
-    end
+    render json: recipes, each_serializer: Recipes::IndexSerializer
   end
 
   def create
