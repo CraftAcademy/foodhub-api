@@ -1,5 +1,5 @@
-RSpec.describe 'GET articles index' do 
-  describe 'Listing articles' do 
+RSpec.describe 'GET recipes index' do 
+  describe 'Listing recipes' do 
     let!(:recipes) { 2.times { create(:recipe) } }
     let(:headers) {{ HTTP_ACCEPT: "application/json" }}
     before do
@@ -15,11 +15,11 @@ RSpec.describe 'GET articles index' do
       expect(response_json["recipes"].first['title']).to eq Recipe.first.title
     end
 
-    it 'Article has ingredients' do
+    it 'Recipe has ingredients' do
       expect(response_json["recipes"].first['ingredients']).to eq Recipe.first.ingredients
     end
 
-    it 'Article has instructions' do
+    it 'Recipe has instructions' do
       expect(response_json["recipes"].first['directions']).to eq Recipe.first.directions
     end
 
