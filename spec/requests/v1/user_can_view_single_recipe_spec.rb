@@ -8,7 +8,6 @@ RSpec.describe 'GET specific recipe' do
     end
 
     it 'returns one recipe' do
-      binding.pry
       expect(response_json.count)
     end
     
