@@ -9,10 +9,17 @@ class V1::RecipesController < ApplicationController
       render json: { error_message: 'Unable to create recipe' }, status: 422
     end
   end
-
+  def show
+    if @recipe = Recipe.find(params[:id])
+      authorize @recipe
+      render json: @article
+    else
+      render_error_message('The recipe could not be found', 404)
+    end
+  end
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :directions)
+    params.require(:recipe).permit(:title, :ingredients, :directions, :portions)
   end
 end
