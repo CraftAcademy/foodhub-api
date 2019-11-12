@@ -11,8 +11,7 @@ class V1::RecipesController < ApplicationController
   end
   def show
     if @recipe = Recipe.find(params[:id])
-      authorize @recipe
-      render json: @article
+      render json: @recipe
     else
       render_error_message('The recipe could not be found', 404)
     end
@@ -20,6 +19,6 @@ class V1::RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :directions, :portions)
+    params.require(:recipe).permit(:title, :ingredients, :directions)
   end
 end
