@@ -8,4 +8,97 @@ consumes:
 - application/json
 produces:
 - application/json
-paths: {}
+paths:
+  "/v1/recipes":
+    post:
+      summary: Creates a recipe
+      tags:
+      - Recipes
+      description: Creates an instance of Recipe.
+      consumes:
+      - application/json
+      parameters:
+      - name: recipe
+        in: body
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Swedish Meatballs
+            ingredients:
+              type: string
+              example: Minced meat, bacon, bread crumbs, cream, medium white chopped
+                onion
+            directions:
+              type: string
+              example: In large bowl, place 3 lb lean ground beef...
+            image:
+              type: string
+              x-nullable: true
+              example: Base64 encoded image
+          required:
+          - title
+          - ingredients
+          - directions
+      responses:
+        '201':
+          description: recipe created
+        '422':
+          description: invalid request
+    get:
+      summary: Returns collection of recipes
+      tags:
+      - Recipes
+      description: Returns collection of recipes in the system.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Collection of recipes returned
+          schema:
+            properties:
+              recipes:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    ingredients:
+                      type: string
+                    directions:
+                      type: string
+  "/v1/recipes/{id}":
+    get:
+      summary: Returns a recipe
+      tags:
+      - Recipes
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: Recipe found
+          schema:
+            properties:
+              recipe:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+                  ingredients:
+                    type: string
+                  directions:
+                    type: string
