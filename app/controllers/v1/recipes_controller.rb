@@ -19,7 +19,7 @@ class V1::RecipesController < ApplicationController
 
   def show
     recipe = Recipe.find(params[:id])
-    render json: recipe, serializer: Recipes::IndexSerializer
+    render json: recipe, serializer: Recipes::ShowSerializer
   end
 
   private
