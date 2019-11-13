@@ -1,11 +1,7 @@
 module DecodeService
   def self.attach_image(file, target)
-    if Rails.env == 'test'
-      image = file
-    else
-      image = split_base64(file)
-    end
-
+    image = Rails.env.test? ? file : split_base64(file)
+    
     decoded_data = Base64.decode64(image[:data])
     io = StringIO.new
     io.puts(decoded_data)
