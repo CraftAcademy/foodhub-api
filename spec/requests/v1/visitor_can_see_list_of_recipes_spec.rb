@@ -1,5 +1,7 @@
-RSpec.describe 'GET recipes index' do 
-  describe 'Listing recipes' do 
+# frozen_string_literal: true
+
+RSpec.describe 'GET recipes index' do
+  describe 'Listing recipes' do
     let!(:recipes) { 2.times { create(:recipe) } }
     let(:headers) {{ HTTP_ACCEPT: 'application/json' }}
     before do
@@ -27,7 +29,7 @@ RSpec.describe 'GET recipes index' do
     end
   end
 
-  describe 'Message if database contains no recipes' do 
+  describe 'Message if database contains no recipes' do
     before do
       get '/v1/recipes', headers: headers
     end

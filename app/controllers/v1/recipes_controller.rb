@@ -33,7 +33,7 @@ class V1::RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :directions)
+    params.require(:recipe).permit(:title, :ingredients, :directions, :image)
   end
 
   def record_not_found
