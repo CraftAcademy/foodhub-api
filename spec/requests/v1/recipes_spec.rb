@@ -3,21 +3,21 @@
 require 'swagger_helper'
 
 RSpec.describe 'V1::Recipes', type: :request do
-  let(:image) do
+  let(:image) do 
     {
       type: 'application/jpg',
       encoder: 'name=new_iphone.jpg;base64',
       data: 'iVBORw0KGgoAAAANSUhEUgAABjAAAAOmCAYAAABFYNwHAAAgAElEQVR4XuzdB3gU1cLG8Te9EEgISQi9I71KFbBXbFixN6zfvSiIjSuKInoVFOyIDcWuiKiIol4Q6SBVOtI7IYSWBkm',
       extension: 'jpg'
     }
-
+  end
   describe 'POST /v1/recipes' do
     describe 'with valid params' do
       before do
         post '/v1/recipes',
             params: {
-              recipe:
-              { title: 'Meatballs',
+              recipe:{ 
+                title: 'Meatballs',
                 ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
                 directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)',
                 image: image
@@ -38,8 +38,8 @@ RSpec.describe 'V1::Recipes', type: :request do
       before do
         post '/v1/recipes',
             params: {
-              recipe:
-              { title: '',
+              recipe: { 
+                title: '',
                 ingredients: '',
                 directions: '',
                 image: image
@@ -56,8 +56,6 @@ RSpec.describe 'V1::Recipes', type: :request do
       end
     end
   end
-
-  Co-authored-by: tochman <thomas@craftacademy.se>
 
   path '/v1/recipes' do
     post 'Creates a recipe' do
