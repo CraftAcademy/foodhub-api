@@ -9,7 +9,6 @@ class V1::RecipesController < ApplicationController
   end
 
   def create
-    binding.pry
     recipe = Recipe.create(recipe_params)
     if recipe.persisted?
       render json: { message: 'The recipe was successfully created.' }, status: 201
