@@ -9,6 +9,7 @@ class V1::RecipesController < ApplicationController
   end
 
   def create
+    binding.pry
     recipe = Recipe.create(recipe_params)
     if recipe.persisted?
       render json: { message: 'The recipe was successfully created.' }, status: 201
@@ -20,6 +21,6 @@ class V1::RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :directions)
+    params.require(:recipe).permit(:title, :ingredients, :directions, :image)
   end
 end
