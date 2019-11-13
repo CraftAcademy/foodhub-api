@@ -1,10 +1,14 @@
+# frozen_string_literal: true
+
 RSpec.describe 'GET specific recipe' do
   describe 'user can view a specific recipe' do
-    let(:headers) {{ HTTP_ACCEPT: 'application/json' }}
-    let(:recipe) { create(:recipe, 
-      title: 'Cookies', 
-      ingredients: 'Cookie ingredients, chocolate chips.', 
-      directions: 'Make the cookies.') }
+    let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+    let(:recipe) do
+      create(:recipe,
+             title: 'Cookies',
+             ingredients: 'Cookie ingredients, chocolate chips.',
+             directions: 'Make the cookies.')
+    end
 
     before do
       get "/v1/recipes/#{recipe.id}", headers: headers
@@ -13,7 +17,7 @@ RSpec.describe 'GET specific recipe' do
     it 'Returns a successful response status' do
       expect(response).to have_http_status 200
     end
-    
+
     it 'Recipe has a title' do
       expect(response_json['recipe']['title']).to eq 'Cookies'
     end
@@ -29,7 +33,7 @@ RSpec.describe 'GET specific recipe' do
 
   describe 'Specific recipe not found' do
     let(:recipe) { create(:recipe) }
-    let(:headers) {{ HTTP_ACCEPT: 'application/json' }}
+    let(:headers) { { HTTP_ACCEPT: 'application/json' } }
 
     before do
       get '/v1/recipes/12345', headers: headers
