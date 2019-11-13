@@ -11,9 +11,9 @@ class V1::RecipesController < ApplicationController
   def create
     recipe = Recipe.create(recipe_params)
     if recipe.persisted?
-      render json: { message: 'The recipe was successfully created' }, status: 201
+      render json: { message: 'The recipe was successfully created.' }, status: 201
     else
-      render json: { error_message: 'Unable to create recipe' }, status: 422
+      render json: { error_message: 'Unable to create recipe.' }, status: 422
     end
   end
 
@@ -25,9 +25,9 @@ class V1::RecipesController < ApplicationController
   def update
     recipe = Recipe.find(params[:id])
     if recipe.update(recipe_params)
-      render json: { message: 'Your recipe has been updated' }, status: 201
+      render json: { message: 'Your recipe has been updated.' }, status: 201
     else
-      render json: { error_message: 'Unable to update recipe' }, status: 417
+      render json: { error_message: 'Unable to update recipe.' }, status: 417
     end
   end
 
@@ -38,6 +38,6 @@ class V1::RecipesController < ApplicationController
   end
 
   def record_not_found
-    render json: { error_message: 'The recipe could not be found'}, status: 404
+    render json: { error_message: 'The recipe could not be found.'}, status: 404
   end
 end

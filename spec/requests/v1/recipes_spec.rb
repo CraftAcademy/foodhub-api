@@ -40,7 +40,7 @@ RSpec.describe 'V1::Recipes', type: :request do
       end
 
       it 'returns success message' do
-        expect(response_json['error_message']).to eq 'Unable to create recipe'
+        expect(response_json['error_message']).to eq 'Unable to create recipe.'
       end
     end
   end
@@ -77,7 +77,7 @@ RSpec.describe 'V1::Recipes', type: :request do
             directions: ''}
         end
         run_test! do
-          expect(response_json['error_message']).to eq 'Unable to create recipe'
+          expect(response_json['error_message']).to eq 'Unable to create recipe.'
         end
       end
     end
