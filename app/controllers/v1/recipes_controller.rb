@@ -10,6 +10,7 @@ class V1::RecipesController < ApplicationController
 
   def create
     recipe = Recipe.create(recipe_params)
+    attach_image(recipe)
     if recipe.persisted?
       render json: { message: 'The recipe was successfully created.' }, status: 201
     else
@@ -23,6 +24,13 @@ class V1::RecipesController < ApplicationController
   end
 
   private
+
+  def attach_image(recipe)
+    params_image = params['recipe']['image']
+    if params_image && params_image.present?
+      DecodeService.attach_image(params_image, recipe.image)
+    end
+  end
 
   def recipe_params
     params.require(:recipe).permit(:title, :ingredients, :directions)

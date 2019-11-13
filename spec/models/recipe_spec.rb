@@ -20,12 +20,12 @@ RSpec.describe Recipe, type: :model do
     it "is valid" do
       subject.image.attach(
         io: File.open(
-          fixture_path +'/pizza.jpeg'
+          fixture_path + '/pizza.jpeg'
         ), 
         filename:'attachment.jpeg', 
         content_type:'image/jpeg'
       )
-      expect(subject.image).to  be_attached
+      expect(subject.image).to be_attached
     end 
   end
 end
