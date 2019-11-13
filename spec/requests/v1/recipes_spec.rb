@@ -89,5 +89,23 @@ RSpec.describe 'V1::Recipes', type: :request do
         run_test!
       end
     end
+
+    put 'Edits a recipe' do
+      tags 'Recipes'
+      consumes 'application/json'
+      produces 'application/json'
+      parameter name: :id, in: :path, type: :string, required: true
+      response '201', 'Updates recipe instance' do
+        schema properties: {
+          title: { type: :string, example: 'New title' },
+          ingredients: { type: :string, example: 'New ingredients' },
+          directions: { type: :string, example: 'New directions' }
+        }
+        let(:id) { create(:recipe).id }
+        run_test! do
+          # binding.pry
+        end
+      end
+    end
   end
 end
