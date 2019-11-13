@@ -3,16 +3,26 @@
 require 'swagger_helper'
 
 RSpec.describe 'V1::Recipes', type: :request do
+  let(:image) do 
+    {
+      type: 'application/jpg',
+      encoder: 'name=new_iphone.jpg;base64',
+      data: 'iVBORw0KGgoAAAANSUhEUgAABjAAAAOmCAYAAABFYNwHAAAgAElEQVR4XuzdB3gU1cLG8Te9EEgISQi9I71KFbBXbFixN6zfvSiIjSuKInoVFOyIDcWuiKiIol4Q6SBVOtI7IYSWBkm',
+      extension: 'jpg'
+    }
+  end
   describe 'POST /v1/recipes' do
     describe 'with valid params' do
       before do
         post '/v1/recipes',
-             params: {
-               recipe:
-               { title: 'Meatballs',
-                 ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
-                 directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)' }
-             }
+            params: {
+              recipe:{ 
+                title: 'Meatballs',
+                ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
+                directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)',
+                image: image
+              }
+            }
       end
 
       it 'returns 201 status' do
@@ -27,12 +37,14 @@ RSpec.describe 'V1::Recipes', type: :request do
     describe 'with invalid params' do
       before do
         post '/v1/recipes',
-             params: {
-               recipe:
-               { title: '',
-                 ingredients: '',
-                 directions: '' }
-             }
+            params: {
+              recipe: { 
+                title: '',
+                ingredients: '',
+                directions: '',
+                image: image
+              }
+            }
       end
 
       it 'returns 422 status' do

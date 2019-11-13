@@ -15,6 +15,17 @@ RSpec.describe Recipe, type: :model do
     it { is_expected.to validate_presence_of :directions }
     it { is_expected.to validate_length_of(:ingredients).is_at_most(500)}
     it { is_expected.to validate_length_of(:directions).is_at_most(5000)}
-
+  end
+  describe 'Attachment' do
+    it "is valid" do
+      subject.image.attach(
+        io: File.open(
+          fixture_path + '/pizza.jpeg'
+        ), 
+        filename:'attachment.jpeg', 
+        content_type:'image/jpeg'
+      )
+      expect(subject.image).to be_attached
+    end 
   end
 end
