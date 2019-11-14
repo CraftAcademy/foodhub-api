@@ -3,8 +3,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'V1::Recipes', type: :request do
-  let!(:user) { create(:user) }
-  let!(:user_credentials) { user.create_new_auth_token }
+  let(:user_credentials) { create(:user).create_new_auth_token }
   let(:HTTP_ACCESS_TOKEN) { user_credentials['access-token'] }
   let(:HTTP_TOKEN_TYPE) { user_credentials['token-type'] }
   let(:HTTP_CLIENT) { user_credentials['client'] }
@@ -180,8 +179,7 @@ RSpec.describe 'V1::Recipes', type: :request do
             directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)' }
         end
         let(:id) { create(:recipe).id }
-        run_test! do
-        end
+        run_test!
       end
     end
   end
