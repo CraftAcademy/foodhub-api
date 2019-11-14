@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   namespace :v1 do
-    resources :recipes, only: %i[create index show update]
+    resources :recipes, only: %i[create index show update] do
+      post :fork, controller: :forks, action: :create
+    end
   end
 end
