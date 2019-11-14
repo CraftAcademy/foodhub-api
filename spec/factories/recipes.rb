@@ -3,5 +3,6 @@ FactoryBot.define do
     title { "MyString" }
     ingredients { "MyText" }
     directions { "MyText" }
+    user
   end
 end

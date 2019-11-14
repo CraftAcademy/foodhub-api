@@ -11,7 +11,7 @@ class V1::RecipesController < ApplicationController
   end
 
   def create
-    recipe = Recipe.create(recipe_params)
+    recipe = current_user.recipes.create(recipe_params)
     if recipe.persisted?
       attach_image(recipe)
       render json: { message: 'The recipe was successfully created.' }, status: 201
