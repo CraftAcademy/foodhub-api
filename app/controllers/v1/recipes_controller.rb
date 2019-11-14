@@ -28,7 +28,6 @@ class V1::RecipesController < ApplicationController
     if recipe.update(recipe_params)
       render json: { message: 'Your recipe has been updated.' }, status: 200
     else
-      #render json: { error_message: 'Unable to update recipe.' }, status: 422
       render_error_message(recipe.errors.full_messages.to_sentence, 422)
     end
   end
