@@ -26,9 +26,10 @@ class V1::RecipesController < ApplicationController
   def update
     recipe = Recipe.find(params[:id])
     if recipe.update(recipe_params)
-      render json: { message: 'Your recipe has been updated.' }, status: 201
+      render json: { message: 'Your recipe has been updated.' }, status: 200
     else
-      render json: { error_message: 'Unable to update recipe.' }, status: 417
+      #render json: { error_message: 'Unable to update recipe.' }, status: 422
+      render_error_message(recipe.errors.full_messages.to_sentence, 422)
     end
   end
 
@@ -47,5 +48,9 @@ class V1::RecipesController < ApplicationController
 
   def record_not_found
     render json: { error_message: 'The recipe could not be found.'}, status: 404
+  end
+
+  def render_error_message(message, status) 
+    render json: { error_message: message }, status: status
   end
 end
