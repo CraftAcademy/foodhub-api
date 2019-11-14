@@ -35,7 +35,7 @@ RSpec.describe 'Update specific recipe' do
 
     %i[title ingredients directions].each do |attribute|
       it "updates #{attribute} as value on the last Recipe" do
-        expect(Recipe.last.send(attribute.to_sym)).to eq expected_attributes[attribute.to_sym]
+        expect(Recipe.last.send(attribute)).to eq expected_attributes[attribute]
       end
     end
   end
