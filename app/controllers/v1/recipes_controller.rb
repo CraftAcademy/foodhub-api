@@ -23,6 +23,11 @@ class V1::RecipesController < ApplicationController
     render json: recipe, serializer: Recipes::ShowSerializer
   end
 
+  def update
+    recipe = Recipe.find(params[:id])
+    render json: recipe, serializer: Recipes::ShowSerializer, status: 201
+  end
+
   private
 
   def attach_image(recipe)

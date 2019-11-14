@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   namespace :v1 do
-    resources :recipes, only: [:create, :index, :show]
+    resources :recipes, only: %i[create index show update]
   end
 end
