@@ -16,7 +16,7 @@ RSpec.describe 'Update specific recipe' do
   describe 'user can fork a recipe' do
     let(:expected_attributes) do
       {
-        title: 'Cookies',
+        title: 'Forked Cookies',
         ingredients: 'Cookie ingredients, chocolate chips.',
         directions: 'Make the cookies.',
         user_id: user_2.id
