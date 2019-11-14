@@ -44,7 +44,7 @@ RSpec.describe 'GET specific recipe' do
     end
 
     it 'Returns an error message' do
-      expect(response_json['error_message']).to eq 'The recipe could not be found'
+      expect(response_json['error_message']).to eq 'The recipe could not be found.'
     end
   end
 end

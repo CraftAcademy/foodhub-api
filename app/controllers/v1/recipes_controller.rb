@@ -16,7 +16,7 @@ class V1::RecipesController < ApplicationController
       attach_image(recipe)
       render json: { message: 'The recipe was successfully created.' }, status: 201
     else
-      render json: { error_message: 'Unable to create recipe' }, status: 422
+      render json: { error_message: 'Unable to create recipe.' }, status: 422
     end
   end
 
@@ -27,7 +27,11 @@ class V1::RecipesController < ApplicationController
 
   def update
     recipe = Recipe.find(params[:id])
-    render json: recipe, serializer: Recipes::ShowSerializer, status: 201
+    if recipe.update(recipe_params)
+      render json: { message: 'Your recipe has been updated.' }, status: 201
+    else
+      render json: { error_message: recipe.errors.full_messages.to_sentence }, status: 422
+    end
   end
 
   private
@@ -44,6 +48,6 @@ class V1::RecipesController < ApplicationController
   end
 
   def record_not_found
-    render json: { error_message: 'The recipe could not be found'}, status: 404
+    render json: { error_message: 'The recipe could not be found.'}, status: 404
   end
 end
