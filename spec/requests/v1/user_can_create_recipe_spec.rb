@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe 'V1::Recipes', type: :request do
-  let(:image) do 
+  let(:user) { create(:user) }
+  let(:user_credentials) { user.create_new_auth_token }
+  let!(:valid_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
+
+  let(:image) do
     {
       type: 'application/jpg',
       encoder: 'name=new_iphone.jpg;base64',
@@ -11,14 +17,15 @@ RSpec.describe 'V1::Recipes', type: :request do
     describe 'with valid params' do
       before do
         post '/v1/recipes',
-            params: {
-              recipe:{ 
-                title: 'Meatballs',
-                ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
-                directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)',
-                image: image
-              }
-            }
+             params: {
+               recipe: {
+                 title: 'Meatballs',
+                 ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
+                 directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)',
+                 image: image
+               }
+             },
+             headers: valid_headers
       end
 
       it 'returns 201 status' do
@@ -33,14 +40,15 @@ RSpec.describe 'V1::Recipes', type: :request do
     describe 'with invalid params' do
       before do
         post '/v1/recipes',
-            params: {
-              recipe: { 
-                title: '',
-                ingredients: '',
-                directions: '',
-                image: image
-              }
-            }
+             params: {
+               recipe: {
+                 title: '',
+                 ingredients: '',
+                 directions: '',
+                 image: image
+               }
+             },
+             headers: valid_headers
       end
 
       it 'returns 422 status' do

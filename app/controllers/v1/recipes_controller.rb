@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class V1::RecipesController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
+
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
