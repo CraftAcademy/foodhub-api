@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe RecipePolicy, type: :policy do
   let(:creator) { create(:user) }
   let(:potential_editor) { create(:user) }
@@ -15,7 +13,7 @@ RSpec.describe RecipePolicy, type: :policy do
     it { is_expected.to forbid_actions %i[create update] }
   end
 
-  context 'Registered user can not create a new article' do
+  context 'Registered user can create and update a new recipe' do
     subject { described_class.new(creator, recipe) }
     it { is_expected.to permit_actions %i[create update] }
   end
