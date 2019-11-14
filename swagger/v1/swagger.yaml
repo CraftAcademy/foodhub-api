@@ -18,6 +18,31 @@ paths:
       consumes:
       - application/json
       parameters:
+      - name: HTTP_ACCESS_TOKEN
+        in: header
+        type: string
+        example: abcd1dMVlvW2BT67xIAS_A
+        required: true
+      - name: HTTP_TOKEN_TYPE
+        in: header
+        type: string
+        example: Bearer
+        required: true
+      - name: HTTP_CLIENT
+        in: header
+        type: string
+        example: LSJEVZ7Pq6DX5LXvOWMq1w
+        required: true
+      - name: HTTP_EXPIRY
+        in: header
+        type: string
+        example: '1519086891'
+        required: true
+      - name: HTTP_UID
+        in: header
+        type: string
+        example: user@mail.com
+        required: true
       - name: recipe
         in: body
         schema:
@@ -102,3 +127,67 @@ paths:
                     type: string
                   directions:
                     type: string
+    put:
+      summary: Edits a recipe
+      tags:
+      - Recipes
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      - name: recipe
+        in: body
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Swedish Meatballs
+            ingredients:
+              type: string
+              example: Minced meat, bacon, bread crumbs, cream, medium white chopped
+                onion
+            directions:
+              type: string
+              example: In large bowl, place 3 lb lean ground beef...
+            image:
+              type: string
+              x-nullable: true
+              example: Base64 encoded image
+          required:
+          - title
+          - ingredients
+          - directions
+      - name: HTTP_ACCESS_TOKEN
+        in: header
+        type: string
+        example: abcd1dMVlvW2BT67xIAS_A
+        required: true
+      - name: HTTP_TOKEN_TYPE
+        in: header
+        type: string
+        example: Bearer
+        required: true
+      - name: HTTP_CLIENT
+        in: header
+        type: string
+        example: LSJEVZ7Pq6DX5LXvOWMq1w
+        required: true
+      - name: HTTP_EXPIRY
+        in: header
+        type: string
+        example: '1519086891'
+        required: true
+      - name: HTTP_UID
+        in: header
+        type: string
+        example: user@mail.com
+        required: true
+      responses:
+        '201':
+          description: Updates recipe instance

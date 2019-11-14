@@ -14,6 +14,8 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.0.0'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'devise_token_auth'
+
 
 group :development, :test do
   gem 'coveralls', require: false
@@ -23,6 +25,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rswag-specs'
   gem 'shoulda-matchers'
+  gem 'faker'
 end
 
 group :development do
