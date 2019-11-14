@@ -19,7 +19,8 @@ RSpec.describe 'Update specific recipe' do
         title: 'Forked Cookies',
         ingredients: 'Cookie ingredients, chocolate chips.',
         directions: 'Make the cookies.',
-        user_id: user_2.id
+        user_id: user_2.id,
+        forked_from_recipe_id: recipe.id
       }
     end
     before do

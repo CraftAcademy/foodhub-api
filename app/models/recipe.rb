@@ -4,6 +4,7 @@ class Recipe < ApplicationRecord
   validates_length_of :directions, maximum: 5000
   has_one_attached :image
   belongs_to :user
+  belongs_to :recipe
 
   def fork(user)
     recipe_to_fork = self.dup
