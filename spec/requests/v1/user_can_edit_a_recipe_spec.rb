@@ -1,15 +1,22 @@
 # frozen_string_literal: true
 
 RSpec.describe 'Update specific recipe' do
-  let(:user) { create(:user) }
-  let(:user_credentials) { user.create_new_auth_token }
-  let!(:valid_headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
-
+  let!(:creator) { create(:user) }
+  let(:creator_credentials) { creator.create_new_auth_token }
+  let!(:creator_headers) do
+    { HTTP_ACCEPT: 'application/json' }.merge!(creator_credentials)
+  end
+  let!(:potential_editor) { create(:user) }
+  let(:potential_editor_credentials) { potential_editor.create_new_auth_token }
+  let!(:potential_editor_headers) do
+    { HTTP_ACCEPT: 'application/json' }.merge!(potential_editor_credentials)
+  end
   let(:recipe) do
     create(:recipe,
            title: 'Cookies',
            ingredients: 'Cookie ingredients, chocolate chips.',
-           directions: 'Make the cookies.')
+           directions: 'Make the cookies.',
+           user: creator)
   end
   describe 'user can update a recipe' do
     let(:expected_attributes) do
@@ -26,7 +33,7 @@ RSpec.describe 'Update specific recipe' do
           ingredients: 'New cookie mix, more chocolate.',
           directions: 'Make the new cookies.'
         }
-      }, headers: valid_headers
+      }, headers: creator_headers
     end
 
     it 'returns 201 response' do
@@ -48,7 +55,7 @@ RSpec.describe 'Update specific recipe' do
           ingredients: 'New cookie mix, more chocolate.' * 20,
           directions: 'Make the new cookies.'
         }
-      }, headers: valid_headers
+      }, headers: creator_headers
     end
 
     it 'returns 422 response' do
@@ -58,7 +65,6 @@ RSpec.describe 'Update specific recipe' do
     it 'returns error message' do
       expect(response_json['error_message']).to eq 'Ingredients is too long (maximum is 500 characters)'
     end
-
   end
 
   describe 'non-logged in visitor is unable to update a recipe' do
@@ -80,6 +86,26 @@ RSpec.describe 'Update specific recipe' do
 
     it 'returns error message' do
       expect(response_json['errors']).to include 'You need to sign in or sign up before continuing.'
+    end
+  end
+
+  describe 'non_creator can not update Recipe' do
+    before do
+      put "/v1/recipes/#{recipe.id}", params: {
+        recipe: {
+          title: 'New Cookies',
+          ingredients: 'New cookie mix, more chocolate.',
+          directions: 'Make the new cookies.'
+        }
+      }, headers: potential_editor_headers
+    end
+
+    it 'returns 401 response' do
+      expect(response).to have_http_status 401
+    end
+
+    it 'returns error message' do
+      expect(response_json['error_message']).to eq 'You are not authorized to perform this action.'
     end
   end
 end

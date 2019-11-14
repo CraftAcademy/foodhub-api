@@ -15,6 +15,7 @@ gem 'rails', '~> 6.0.0'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'devise_token_auth'
+gem "pundit"
 
 
 group :development, :test do
@@ -26,6 +27,7 @@ group :development, :test do
   gem 'rswag-specs'
   gem 'shoulda-matchers'
   gem 'faker'
+  gem 'pundit-matchers'
 end
 
 group :development do
