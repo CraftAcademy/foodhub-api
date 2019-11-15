@@ -28,6 +28,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'faker'
   gem 'pundit-matchers'
+  gem 'pdf-inspector', require: "pdf/inspector"
 end
 
 group :development do

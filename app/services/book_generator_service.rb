@@ -3,8 +3,9 @@
 # Usage in console
 # load Rails.root.join('app/services/book_generator_service.rb')
 
-
 module BookGeneratorService
+  include Rails.application.routes.url_helpers
+
   def self.generate_book(recipes)
     template = Rails.public_path.join('fh_cover.jpeg')
 
@@ -41,7 +42,7 @@ module BookGeneratorService
     # Cover
     pdf.move_down 215
     pdf.font 'Condiment'
-    pdf.text 'Social Cooking', size: 110, align: :center, color: 'FCFCFC'
+    pdf.text 'Prawn is Fantastic', size: 110, align: :center, color: 'FCFCFC'
     pdf.move_down -25
     pdf.font 'Condiment'
     pdf.text 'by', size: 40, align: :center, color: 'FCFCFC'
@@ -53,7 +54,7 @@ module BookGeneratorService
     pdf.text 'www.foodhub.recipes', size: 22, style: :medium, leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
     # insert blank page
     pdf.start_new_page left_margin: 150, right_margin: 50
-    
+
     # Intro page
     pdf.start_new_page left_margin: 150, right_margin: 50
     pdf.move_down (pdf.bounds.height / 2) - 180
@@ -72,11 +73,13 @@ module BookGeneratorService
       # ingredients + beackground image
       pdf.start_new_page left_margin: 150, right_margin: 70
       pdf.canvas do
-        pdf.image(open(recipe.image.service_url), width: pdf.bounds.width, at: pdf.bounds.top_left)
+        pdf.image(Rails.env.test? ? open(rails_blob_url(recipe.image)) : open(recipe.image.service_url),
+                  width: pdf.bounds.width,
+                  at: pdf.bounds.top_left)
       end
       pdf.move_down 49
       pdf.font 'Condiment'
-      pdf.text recipe.title,indent_paragraphs: -100, size: 60, align: :left, color: 'FCFCFC'
+      pdf.text recipe.title, indent_paragraphs: -100, size: 60, align: :left, color: 'FCFCFC'
 
       pdf.transparent(0.7) do
         pdf.fill_color 'FCFCFC'
