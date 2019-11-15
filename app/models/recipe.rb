@@ -13,5 +13,6 @@ class Recipe < ApplicationRecord
       forked_from_recipe_id: self.id
     }
     forked_recipe.update(attributes)
+    return forked_recipe
   end
 end
