@@ -27,6 +27,7 @@ class V1::RecipesController < ApplicationController
 
   def update
     recipe = Recipe.find(params[:id])
+    authorize recipe
     if recipe.update(recipe_params)
       render json: { message: 'Your recipe has been updated.' }, status: 201
     else
