@@ -16,7 +16,7 @@ gem 'rswag-api'
 gem 'rswag-ui'
 gem 'devise_token_auth'
 gem "pundit"
-
+gem 'prawn'
 
 group :development, :test do
   gem 'coveralls', require: false
