@@ -3,6 +3,6 @@ class V1::ForksController < ApplicationController
 
   def create
     recipe = Recipe.find(params[:recipe_id])
-    recipe_to_fork = recipe.fork(current_user)
+    forked_recipe = recipe.fork(current_user)
   end
 end

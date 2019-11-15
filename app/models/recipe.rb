@@ -6,12 +6,12 @@ class Recipe < ApplicationRecord
   belongs_to :user
 
   def fork(user)
-    recipe_to_fork = self.dup
+    forked_recipe = self.dup
     attributes = { 
       title: "Forked #{self.title}",  
       user_id: user.id, 
       forked_from_recipe_id: self.id
     }
-    recipe_to_fork.update(attributes)
+    forked_recipe.update(attributes)
   end
 end
