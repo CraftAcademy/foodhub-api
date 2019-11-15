@@ -36,8 +36,12 @@ RSpec.describe 'Forking a recipe', type: :request do
 
     end
       
-    it 'returns 204 response' do
-      expect(response).to have_http_status 204
+    it 'returns 201 response' do
+      expect(response).to have_http_status 201
+    end
+
+    it 'returns sucess response' do
+      expect(response_json['message']).to eq 'The recipe was successfully forked'
     end
 
     it 'has a new title leading with "Forked"' do

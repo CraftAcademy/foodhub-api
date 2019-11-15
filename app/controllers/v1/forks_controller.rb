@@ -3,6 +3,10 @@ class V1::ForksController < ApplicationController
 
   def create
     recipe = Recipe.find(params[:recipe_id])
-    forked_recipe = recipe.fork(current_user)
+    if recipe.fork(current_user) 
+      render json: { message: 'The recipe was successfully forked'}, status: 201
+    else
+      render json: { error_message: 'Could not complete the fork'}, status: 422
+    end
   end
 end

@@ -9,6 +9,7 @@ RSpec.describe Recipe, type: :model do
     it { is_expected.to have_db_column :title }
     it { is_expected.to have_db_column :ingredients }
     it { is_expected.to have_db_column :directions }
+    it { is_expected.to have_db_column :parent_id }
   end
 
   describe 'validations' do
@@ -21,6 +22,11 @@ RSpec.describe Recipe, type: :model do
 
   describe 'associations' do 
     it { is_expected.to belong_to :user }
+    it do 
+      is_expected.to belong_to(:parent)
+      .class_name('Recipe')
+      .optional 
+    end
   end
 
   describe 'Attachment' do
@@ -34,5 +40,9 @@ RSpec.describe Recipe, type: :model do
       )
       expect(subject.image).to be_attached
     end 
+  end
+
+  describe "instance methods" do
+    it { is_expected.to respond_to :parent }
   end
 end
