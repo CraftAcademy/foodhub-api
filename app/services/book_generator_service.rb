@@ -66,34 +66,36 @@ module BookGeneratorService
     pdf.move_down 5
     pdf.text 'Bon Appétit!', size: 18, style: :medium, leading: 20, align: :right, color: '383838'
 
-    # Recipe pages
-    #  binding.pry
+    # Generate recipe pages
+    unless recipes.empty?
+      recipes.each do |recipe|
+        # ingredients + beackground image
+        pdf.start_new_page left_margin: 150, right_margin: 70
+        pdf.canvas do
+          pdf.image(Rails.env.test? ?
+            File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) : 
+            File.open(recipe.image.service_url),
+                    width: pdf.bounds.width,
+                    at: pdf.bounds.top_left)
+        end
+        pdf.move_down 49
+        pdf.font 'Condiment'
+        pdf.text recipe.title, indent_paragraphs: -100, size: 60, align: :left, color: 'FCFCFC'
 
-    recipes.each do |recipe|
-      # ingredients + beackground image
-      pdf.start_new_page left_margin: 150, right_margin: 70
-      pdf.canvas do
-        pdf.image(Rails.env.test? ? open(rails_blob_url(recipe.image)) : open(recipe.image.service_url),
-                  width: pdf.bounds.width,
-                  at: pdf.bounds.top_left)
+        pdf.transparent(0.7) do
+          pdf.fill_color 'FCFCFC'
+          pdf.fill_rectangle [pdf.bounds.right - 350, pdf.bounds.top - 50], 350, pdf.bounds.height - 100
+        end
+        pdf.font 'Futura'
+        pdf.fill_color '383838'
+        pdf.text_box "<b>Ingredients</b><br/><br/>#{recipe.ingredients}", at: [pdf.bounds.right - 330, pdf.bounds.top - 70], inline_format: true, size: 12, style: :normal, leading: 10, character_spacing: 0
+        # directions
+        pdf.start_new_page left_margin: 150, right_margin: 50
+        pdf.move_down (pdf.bounds.height / 2) - 180
+        pdf.font 'Futura'
+        pdf.text 'Directions', size: 18, style: :medium, leading: 20, align: :right, color: '383838'
+        pdf.text recipe.directions, inline_format: true, size: 12, style: :normal, leading: 5, character_spacing: 0, align: :left, color: '383838'
       end
-      pdf.move_down 49
-      pdf.font 'Condiment'
-      pdf.text recipe.title, indent_paragraphs: -100, size: 60, align: :left, color: 'FCFCFC'
-
-      pdf.transparent(0.7) do
-        pdf.fill_color 'FCFCFC'
-        pdf.fill_rectangle [pdf.bounds.right - 350, pdf.bounds.top - 50], 350, pdf.bounds.height - 100
-      end
-      pdf.font 'Futura'
-      pdf.fill_color '383838'
-      pdf.text_box "<b>Ingredients</b><br/><br/>#{recipe.ingredients}", at: [pdf.bounds.right - 330, pdf.bounds.top - 70], inline_format: true, size: 12, style: :normal, leading: 10, character_spacing: 0
-      # directions
-      pdf.start_new_page left_margin: 150, right_margin: 50
-      pdf.move_down (pdf.bounds.height / 2) - 180
-      pdf.font 'Futura'
-      pdf.text 'Directions', size: 18, style: :medium, leading: 20, align: :right, color: '383838'
-      pdf.text recipe.directions, inline_format: true, size: 12, style: :normal, leading: 5, character_spacing: 0, align: :left, color: '383838'
     end
 
     # generate footer with page number
