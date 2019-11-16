@@ -12,7 +12,7 @@ module BookGeneratorService
     pdf_options = {
       page_size: 'A4', page_layout: :landscape,
       left_margin: 0, right_margin: 0,
-      top_margin: 0, bottom_margin: 0, skip_encoding: true
+      top_margin: 50, bottom_margin: 20, skip_encoding: true
     }
 
     pdf = Prawn::Document.new(pdf_options)
@@ -40,73 +40,134 @@ module BookGeneratorService
                              })
 
     # Cover
-    pdf.move_down 215
-    pdf.font 'Condiment'
-    pdf.text 'Prawn is Fantastic', size: 110, align: :center, color: 'FCFCFC'
-    pdf.move_down -25
-    pdf.font 'Condiment'
-    pdf.text 'by', size: 40, align: :center, color: 'FCFCFC'
-    pdf.move_down 35
-    pdf.font 'AbrilFatface'
-    pdf.text 'FoodHub', size: 78, align: :center, color: 'FCFCFC'
-    pdf.move_down -2
-    pdf.font 'Futura'
-    pdf.text 'www.foodhub.recipes', size: 22, style: :medium, leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
+    pdf.canvas do
+      pdf.move_down 210
+      pdf.font 'Condiment'
+      pdf.text 'Social Cooking',
+               size: 110, align: :center, color: 'FCFCFC'
+      pdf.move_down -35
+      pdf.text 'by',
+               size: 40, align: :center, color: 'FCFCFC'
+      pdf.move_down 60
+      pdf.font 'AbrilFatface'
+      pdf.text 'FoodHub',
+               size: 78, align: :center, color: 'FCFCFC'
+      pdf.move_down -20
+      pdf.font 'Futura'
+      pdf.text 'www.foodhub.recipes',
+               size: 22, style: :medium, leading: 10,
+               character_spacing: 1, align: :center, color: 'FCFCFC'
+    end
     # insert blank page
     pdf.start_new_page left_margin: 150, right_margin: 50
+    pdf.canvas do
+      pdf.text_box 'Yes, this page is blank',
+                   at: pdf.bounds.top_left, width: pdf.bounds.width, height: pdf.bounds.height,
+                   valign: :center, align: :center, size: 16
+    end
 
     # Intro page
     pdf.start_new_page left_margin: 150, right_margin: 50
     pdf.move_down (pdf.bounds.height / 2) - 180
     pdf.font 'Futura'
     random_text = 'Lorem <b>ipsum dolor</b> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    pdf.text 'Food is awesome!', size: 28, style: :medium, leading: 20, align: :right, color: '383838'
-    pdf.text random_text * 3, inline_format: true, size: 18, style: :normal, leading: 10, character_spacing: 1, final_gap: true, align: :right, color: '383838'
-    pdf.text random_text, inline_format: true, size: 18, style: :normal, leading: 10, character_spacing: 1, align: :right, color: '383838'
+    pdf.text 'Food is awesome!',
+             size: 28, style: :medium, leading: 20,
+             align: :right, color: '383838'
+    pdf.text random_text * 3,
+             inline_format: true, size: 18, style: :normal,
+             leading: 10, character_spacing: 1, final_gap: true, align: :right, color: '383838'
+    pdf.text random_text,
+             inline_format: true, size: 18, style: :normal,
+             leading: 10, character_spacing: 1, align: :right, color: '383838'
     pdf.move_down 5
-    pdf.text 'Bon Appétit!', size: 18, style: :medium, leading: 20, align: :right, color: '383838'
+    pdf.text 'Bon Appétit!',
+             size: 18, style: :medium,
+             leading: 20, align: :right, color: '383838'
 
     # Generate recipe pages
     unless recipes.empty?
       recipes.each do |recipe|
         # ingredients + beackground image
-        pdf.start_new_page left_margin: 150, right_margin: 70
+        pdf.start_new_page left_margin: 150, right_margin: 50
         pdf.canvas do
           pdf.image(Rails.env.test? ?
-            File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) : 
-            File.open(recipe.image.service_url),
+            File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) :
+            open(recipe.image.service_url),
                     width: pdf.bounds.width,
                     at: pdf.bounds.top_left)
         end
-        pdf.move_down 49
-        pdf.font 'Condiment'
-        pdf.text recipe.title, indent_paragraphs: -100, size: 60, align: :left, color: 'FCFCFC'
 
-        pdf.transparent(0.7) do
-          pdf.fill_color 'FCFCFC'
-          pdf.fill_rectangle [pdf.bounds.right - 350, pdf.bounds.top - 50], 350, pdf.bounds.height - 100
+        pdf.bounding_box [pdf.bounds.left - 100, pdf.bounds.top], width: 325 do
+          pdf.font 'Condiment'
+          pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
+          pdf.font 'Futura'
+          pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
+                   style: :medium, size: 12, align: :left, color: 'FCFCFC'
         end
-        pdf.font 'Futura'
-        pdf.fill_color '383838'
-        pdf.text_box "<b>Ingredients</b><br/><br/>#{recipe.ingredients}", at: [pdf.bounds.right - 330, pdf.bounds.top - 70], inline_format: true, size: 12, style: :normal, leading: 10, character_spacing: 0
-        # directions
+
+        pdf.bounding_box [pdf.bounds.right - 350, pdf.bounds.top - 10], width: 350 do
+          pdf.indent 20 do
+            pdf.font 'Futura'
+            pdf.fill_color '383838'
+            pdf.move_down 20
+            pdf.text "<b>Ingredients</b><br/><br/>#{recipe.ingredients}",
+                     inline_format: true, size: 12,
+                     style: :normal, leading: 10, character_spacing: 0
+            pdf.move_down 20
+          end
+
+          pdf.transparent(0.7) do
+            pdf.stroke do
+              pdf.fill_color 'FCFCFC'
+              pdf.fill_rectangle [pdf.bounds.right - 350, pdf.bounds.top], 350, pdf.bounds.height
+            end
+          end
+
+          pdf.indent 20 do
+            pdf.font 'Futura'
+            pdf.fill_color '383838'
+            pdf.move_up pdf.bounds.height - 20
+            pdf.text "<b>Ingredients</b><br/><br/>#{recipe.ingredients}",
+                     inline_format: true, size: 12,
+                     style: :normal, leading: 10, character_spacing: 0
+          end
+        end
+
+        # directions page
         pdf.start_new_page left_margin: 150, right_margin: 50
-        pdf.move_down (pdf.bounds.height / 2) - 180
         pdf.font 'Futura'
-        pdf.text 'Directions', size: 18, style: :medium, leading: 20, align: :right, color: '383838'
-        pdf.text recipe.directions, inline_format: true, size: 12, style: :normal, leading: 5, character_spacing: 0, align: :left, color: '383838'
+        pdf.text 'Directions',
+                 size: 18, style: :medium,
+                 leading: 20, align: :center, color: '383838'
+
+        pdf.column_box [pdf.bounds.left, pdf.bounds.top - 50],
+                       width: 650, height: pdf.bounds.height - 110,
+                       reflow_margins: true, columns: 2, spacer: 40 do
+          pdf.text recipe.directions,
+                   inline_format: true, size: 12, style: :normal,
+                   leading: 5, character_spacing: 0, align: :left, color: '383838'
+        end
       end
     end
 
     # generate footer with page number
     pdf.page_count.times do |i|
-      next if (i + 1) == 1
-
       pdf.go_to_page(i + 1)
-      pdf.bounding_box([0, pdf.bounds.bottom + 25], width: pdf.bounds.width) do
+      next if pdf.page_number == 1
+
+      pdf.bounding_box([pdf.bounds.left - 100, pdf.bounds.bottom + 20], width: pdf.bounds.width + 100) do
         pdf.font 'Futura'
-        pdf.draw_text 'www.foodhub.recipes', at: [pdf.bounds.left - 100, pdf.bounds.height - 10], size: 10, style: :normal, leading: 20, color: '383838'
-        pdf.draw_text "#{i} / #{pdf.page_count - 1}", at: [pdf.bounds.right + 10, pdf.bounds.height - 10], size: 10, style: :normal, leading: 20, color: '383838'
+        color = pdf.page_number.even? ? 'FCFCFC' : '383838'
+
+        pdf.text 'www.foodhub.recipes',
+                 size: 10, style: :normal, align: :left,
+                 leading: 20, color: color
+        pdf.move_up 30
+
+        pdf.text "#{pdf.page_number} / #{pdf.page_count}",
+                 size: 10, style: :normal, align: :right,
+                 color: color
       end
     end
 
@@ -118,8 +179,13 @@ module BookGeneratorService
     end
     pdf.move_down (pdf.bounds.height / 2) - 20
     pdf.font 'Futura'
-    pdf.text 'Get your own cookbook at', size: 22, style: :normal, leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
-    pdf.text 'www.foodhub.recipes', size: 22, style: :medium, leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
+    pdf.text 'Get your own cookbook at',
+             size: 22, style: :normal,
+             leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
+    pdf.text 'www.foodhub.recipes',
+             size: 22, style: :medium,
+             leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
+
     pdf.render_file 'food_hub_template_draft.pdf'
   end
 end
