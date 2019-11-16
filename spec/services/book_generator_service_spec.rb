@@ -2,7 +2,7 @@
 
 RSpec.describe BookGeneratorService, type: :service do
   let(:recipe) do
-    create(:recipe, title: 'My Fantastic Recipe',
+    create(:recipe, title: 'Amazing Recipe',
                     ingredients: 'Milk \nSugar \nHoney',
                     directions: 'Pour everything in a bowl \nStir')
   end
@@ -15,7 +15,7 @@ RSpec.describe BookGeneratorService, type: :service do
 
   it 'contains recipe' do
     expect(subject.strings)
-      .to include('My Fantastic Recipe')
+      .to include('Amazing Recipe')
       .and include('Milk \\nSugar \\nHoney')
       .and include('Pour everything in a bowl \\nStir')
   end
