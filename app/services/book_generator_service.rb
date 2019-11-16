@@ -16,6 +16,7 @@ module BookGeneratorService
     }
 
     pdf = Prawn::Document.new(pdf_options)
+    pdf.state.store.root.data[:Names] = 'Test'
     pdf.canvas do
       pdf.image(template, scale: 0.3, at: pdf.bounds.top_left)
     end
@@ -103,9 +104,10 @@ module BookGeneratorService
           pdf.font 'Condiment'
           pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
           pdf.font 'Futura'
-          pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
-                    size: 12, style: :medium, 
-                    leading: 10, character_spacing: 0, align: :left, color: 'FCFCFC'
+            pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
+                     size: 18, style: :medium,
+                     leading: 10, character_spacing: 0, align: :left, 
+                     mode: :fill_stroke, color: 'FCFCFC', stroke_color: '383838'
         end
 
         pdf.bounding_box [pdf.bounds.right - 350, pdf.bounds.top - 10], width: 350 do
@@ -135,6 +137,7 @@ module BookGeneratorService
                      style: :normal, leading: 10, character_spacing: 0
           end
         end
+        add_page_number(pdf, 'light')
 
         # directions page
         pdf.start_new_page left_margin: 150, right_margin: 50
@@ -154,32 +157,33 @@ module BookGeneratorService
                    size: 18, style: :medium,
                    leading: 20, align: :center, color: '383838'
 
-          pdf.text recipe.directions,
+          pdf.text recipe.directions * 4,
                    inline_format: true, size: 12, style: :normal,
                    leading: 5, character_spacing: 0, align: :left, color: '383838'
         end
+        add_page_number(pdf, 'dark')
       end
     end
 
     # generate footer with page number
-    pdf.page_count.times do |i|
-      pdf.go_to_page(i + 1)
-      next if pdf.page_number == 1
+    # pdf.page_count.times do |i|
+    #   pdf.go_to_page(i + 1)
+    #   next if pdf.page_number == 1
 
-      pdf.bounding_box([pdf.bounds.left - 100, pdf.bounds.bottom + 20], width: pdf.bounds.width + 100) do
-        pdf.font 'Futura'
-        color = pdf.page_number.even? ? 'FCFCFC' : '383838'
+    #   pdf.bounding_box([pdf.bounds.left - 100, pdf.bounds.bottom + 20], width: pdf.bounds.width + 100) do
+    #     pdf.font 'Futura'
+    #     color = pdf.page_number.even? ? 'FCFCFC' : '383838'
 
-        pdf.text 'www.foodhub.recipes',
-                 size: 10, style: :normal, align: :left,
-                 leading: 20, color: color
-        pdf.move_up 30
+    #     pdf.text 'www.foodhub.recipes',
+    #              size: 10, style: :normal, align: :left,
+    #              leading: 20, color: color
+    #     pdf.move_up 30
 
-        pdf.text "#{pdf.page_number} / #{pdf.page_count}",
-                 size: 10, style: :normal, align: :right,
-                 color: color
-      end
-    end
+    #     pdf.text "#{pdf.page_number} / #{pdf.page_count}",
+    #              size: 10, style: :normal, align: :right,
+    #              color: color
+    #   end
+    # end
 
     # Back
     pdf.start_new_page left_margin: 0, right_margin: 0
@@ -197,5 +201,22 @@ module BookGeneratorService
              leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
 
     pdf.render_file 'food_hub_template_draft.pdf'
+  end
+
+  def self.add_page_number(pdf, mode)
+    pdf.bounding_box([pdf.bounds.left - 100, pdf.bounds.bottom + 20], width: pdf.bounds.width + 100) do
+      pdf.font 'Futura'
+      color = mode == 'light' ? 'FCFCFC' : '383838'
+
+      pdf.text 'www.foodhub.recipes',
+               size: 10, style: :normal, align: :left,
+               leading: 20, color: color
+      pdf.move_up 30
+
+      pdf.text "Page #{pdf.page_number}",
+               size: 10, style: :normal, align: :right,
+               color: color
+    end
+    pdf
   end
 end
