@@ -88,13 +88,14 @@ module BookGeneratorService
     # Generate recipe pages
     unless recipes.empty?
       recipes.each do |recipe|
-        # ingredients + beackground image
+        # ingredients + background image
         pdf.start_new_page left_margin: 150, right_margin: 50
         pdf.canvas do
           pdf.image(Rails.env.test? ?
             File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) :
             open(recipe.image.service_url),
                     width: pdf.bounds.width,
+                    height: pdf.bounds.height,
                     at: pdf.bounds.top_left)
         end
 
@@ -103,7 +104,8 @@ module BookGeneratorService
           pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
           pdf.font 'Futura'
           pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
-                   style: :medium, size: 12, align: :left, color: 'FCFCFC'
+                    size: 12, style: :medium, 
+                    leading: 10, character_spacing: 0, align: :left, color: 'FCFCFC'
         end
 
         pdf.bounding_box [pdf.bounds.right - 350, pdf.bounds.top - 10], width: 350 do
@@ -137,13 +139,21 @@ module BookGeneratorService
         # directions page
         pdf.start_new_page left_margin: 150, right_margin: 50
         pdf.font 'Futura'
-        pdf.text 'Directions',
-                 size: 18, style: :medium,
-                 leading: 20, align: :center, color: '383838'
 
         pdf.column_box [pdf.bounds.left, pdf.bounds.top - 50],
                        width: 650, height: pdf.bounds.height - 110,
                        reflow_margins: true, columns: 2, spacer: 40 do
+          pdf.image Rails.env.test? ?
+          File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) :
+          open(recipe.image.service_url),
+                    fit: [pdf.bounds.width_of_column, 200]
+
+          pdf.move_down 20
+
+          pdf.text 'Directions',
+                   size: 18, style: :medium,
+                   leading: 20, align: :center, color: '383838'
+
           pdf.text recipe.directions,
                    inline_format: true, size: 12, style: :normal,
                    leading: 5, character_spacing: 0, align: :left, color: '383838'
