@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :recipes
+  has_one :cookbook
+  has_many :favorites, through: :cookbook, class_name: 'Recipe'
 end

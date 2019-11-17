@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 RSpec.describe User, type: :model do
   it 'should have valid Factory' do
@@ -13,7 +14,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of :email }
   end
 
-  describe 'associations' do 
+  describe 'associations' do
     it { is_expected.to have_many :recipes }
+    it { is_expected.to have_one :cookbook }
+    it { is_expected.to have_many(:favorites).through(:cookbook).class_name('Recipe') }
   end
 end
