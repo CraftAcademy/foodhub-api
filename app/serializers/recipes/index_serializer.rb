@@ -4,6 +4,8 @@ class Recipes::IndexSerializer < ActiveModel::Serializer
   attributes :id, :title, :ingredients, :directions, :image
 
   def image
+    return nil unless object.image.attached?
+    
     if Rails.env.test?
       rails_blob_url(object.image)
     else
