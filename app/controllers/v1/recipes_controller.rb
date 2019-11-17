@@ -29,6 +29,7 @@ class V1::RecipesController < ApplicationController
     recipe = Recipe.find(params[:id])
     authorize recipe
     if recipe.update(recipe_params)
+      attach_image(recipe)
       render json: { message: 'Your recipe has been updated.' }, status: 201
     else
       render json: { error_message: recipe.errors.full_messages.to_sentence }, status: 422
@@ -45,7 +46,7 @@ class V1::RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :directions, :image)
+    params.require(:recipe).permit(:title, :ingredients, :directions)
   end
 
   def record_not_found

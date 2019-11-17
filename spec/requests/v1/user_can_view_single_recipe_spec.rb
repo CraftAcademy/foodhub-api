@@ -2,14 +2,15 @@
 
 RSpec.describe 'GET specific recipe' do
   describe 'user can view a specific recipe' do
-    let(:headers) { { HTTP_ACCEPT: 'application/json' } }
+    let(:user) { create(:user) }
+    let(:user_credentials) { user.create_new_auth_token }
+    let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
     let(:recipe) do
       create(:recipe,
              title: 'Cookies',
              ingredients: 'Cookie ingredients, chocolate chips.',
              directions: 'Make the cookies.')
     end
-
     before do
       get "/v1/recipes/#{recipe.id}", headers: headers
     end
