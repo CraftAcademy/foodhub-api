@@ -1,3 +1,17 @@
 class Recipes::ShowSerializer < ActiveModel::Serializer
-  attributes :id, :title, :ingredients, :directions
+  include Rails.application.routes.url_helpers
+
+  attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image
+
+  def image
+    if Rails.env.test?
+      rails_blob_url(object.image)
+    else
+      object.image.service_url(expires_in: 1.hour, disposition: 'inline')
+    end
+  end
+
+  def user_name
+    object.user.name
+  end
 end

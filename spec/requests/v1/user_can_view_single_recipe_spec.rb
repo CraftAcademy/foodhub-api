@@ -2,16 +2,31 @@
 
 RSpec.describe 'GET specific recipe' do
   describe 'user can view a specific recipe' do
-    let(:headers) { { HTTP_ACCEPT: 'application/json' } }
-    let(:recipe) do
-      create(:recipe,
-             title: 'Cookies',
-             ingredients: 'Cookie ingredients, chocolate chips.',
-             directions: 'Make the cookies.')
+    let(:user) { create(:user) }
+    let(:user_credentials) { user.create_new_auth_token }
+    let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
+    let(:image) do
+      {
+        type: 'application/jpg',
+        encoder: 'name=new_iphone.jpg;base64',
+        data: 'iVBORw0KGgoAAAANSUhEUgAABjAAAAOmCAYAAABFYNwHAAAgAElEQVR4XuzdB3gU1cLG8Te9EEgISQi9I71KFbBXbFixN6zfvSiIjSuKInoVFOyIDcWuiKiIol4Q6SBVOtI7IYSWBkm',
+        extension: 'jpg'
+      }
     end
-
+    
     before do
-      get "/v1/recipes/#{recipe.id}", headers: headers
+      post '/v1/recipes',
+            params: {
+              recipe: {
+                title: 'Cookies',
+                ingredients: 'Cookie ingredients, chocolate chips.',
+                directions: 'Google it!',
+                image: image
+              }
+            },
+            headers: headers
+      
+      get "/v1/recipes/#{Recipe.last.id}", headers: headers
     end
 
     it 'Returns a successful response status' do
@@ -27,7 +42,7 @@ RSpec.describe 'GET specific recipe' do
     end
 
     it 'Recipe has directions' do
-      expect(response_json['recipe']['directions']).to eq 'Make the cookies.'
+      expect(response_json['recipe']['directions']).to eq 'Google it!'
     end
   end
 
