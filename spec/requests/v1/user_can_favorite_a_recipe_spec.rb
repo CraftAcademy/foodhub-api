@@ -30,7 +30,7 @@ RSpec.describe 'POST /v1/users/{user_id}/favorite', type: :request do
     end
 
     it 'returns sucess response' do
-      expect(response_json['message']).to eq 'The recipe was successfully arred to your favorites'
+      expect(response_json['message']).to eq 'The recipe was successfully added to your favorites'
     end
 
   end
@@ -45,7 +45,7 @@ RSpec.describe 'POST /v1/users/{user_id}/favorite', type: :request do
     end
 
     it 'returns sucess response' do
-      expect(response_json['message']).to eq 'The recipe was successfully arred to your favorites'
+      expect(response_json['message']).to eq 'The recipe was successfully added to your favorites'
     end
   end
 end

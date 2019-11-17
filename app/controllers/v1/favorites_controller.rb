@@ -9,7 +9,7 @@ class V1::FavoritesController < ApplicationController
     favorite = current_user.cookbook.favorites.create(recipe: recipe)
 
     if favorite.persisted?
-      render json: {message: 'The recipe was successfully arred to your favorites'}, status: 201
+      render json: {message: 'The recipe was successfully added to your favorites'}, status: 201
     end
   end
 

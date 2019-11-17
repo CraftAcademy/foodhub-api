@@ -1,7 +1,7 @@
 
 RSpec.describe Favorite, type: :model do
   it 'should have valid Factory' do
-    expect(create(:cookbook)).to be_valid
+    expect(create(:favorite)).to be_valid
   end
 
   describe 'DB columns' do
