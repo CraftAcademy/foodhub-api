@@ -104,10 +104,12 @@ module BookGeneratorService
           pdf.font 'Condiment'
           pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
           pdf.font 'Futura'
-            pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
-                     size: 18, style: :medium,
-                     leading: 10, character_spacing: 0, align: :left, 
-                     mode: :fill_stroke, color: 'FCFCFC', stroke_color: '383838'
+          pdf.fill_color 'FCFCFC'
+          pdf.stroke_color '383838'
+          pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
+                   size: 14, style: :medium,
+                   leading: 10, character_spacing: 0, align: :left,
+                   mode: :fill
         end
 
         pdf.bounding_box [pdf.bounds.right - 350, pdf.bounds.top - 10], width: 350 do
