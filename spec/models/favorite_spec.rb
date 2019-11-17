@@ -1,4 +1,3 @@
-require 'rails_helper'
 
 RSpec.describe Favorite, type: :model do
   it 'should have valid Factory' do
