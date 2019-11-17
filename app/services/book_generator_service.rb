@@ -159,7 +159,7 @@ module BookGeneratorService
                    size: 18, style: :medium,
                    leading: 20, align: :center, color: '383838'
 
-          pdf.text recipe.directions * 4,
+          pdf.text recipe.directions,
                    inline_format: true, size: 12, style: :normal,
                    leading: 5, character_spacing: 0, align: :left, color: '383838'
         end
@@ -168,6 +168,7 @@ module BookGeneratorService
     end
 
     # generate footer with page number
+    # alternative version
     # pdf.page_count.times do |i|
     #   pdf.go_to_page(i + 1)
     #   next if pdf.page_number == 1
