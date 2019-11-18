@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe 'GET specific recipe' do
-  describe 'user can view a specific recipe' do
+  describe 'user can view a specific original recipe' do
     let(:user) { create(:user) }
     let(:user_credentials) { user.create_new_auth_token }
     let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
     let(:recipe) do
       create(:recipe,
-             title: 'Cookies',
-             ingredients: 'Cookie ingredients, chocolate chips.',
-             directions: 'Make the cookies.')
+            title: 'Cookies',
+            ingredients: 'Cookie ingredients, chocolate chips.',
+            directions: 'Make the cookies.')
     end
     before do
       get "/v1/recipes/#{recipe.id}", headers: headers
@@ -30,7 +30,55 @@ RSpec.describe 'GET specific recipe' do
     it 'Recipe has directions' do
       expect(response_json['recipe']['directions']).to eq 'Make the cookies.'
     end
+
+    it "Recipe does not have parent " do
+      expect(response_json['recipe']['parent']).to eq nil
+    end
+    
   end
+
+
+  describe "user can view a forked recipe" do
+    let(:user) { create(:user) }
+    let(:another_user) { create(:user) }
+
+    let(:user_credentials) { user.create_new_auth_token }
+    let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
+    let(:original_recipe) { create(:recipe, user: user, title: 'Lasagna') }
+    let(:forked_recipe) {
+      create(
+        :recipe,
+        parent_id: original_recipe.id,
+        user: another_user,
+        title: 'Vegan Lasagna'
+      )
+    }
+
+    before do
+      get "/v1/recipes/#{forked_recipe.id}", headers: headers
+    end
+
+    it 'Returns a successful response status' do
+      expect(response).to have_http_status 200
+    end
+
+    it 'Recipe has a title' do
+      expect(response_json['recipe']['title']).to eq forked_recipe.title
+    end
+
+    it "Recipe has a parent title sent with it" do
+      expect(response_json['recipe']['parent']['title']).to eq original_recipe.title
+    end
+
+    it "Recipe has a parent id sent with it" do
+      expect(response_json['recipe']['parent']['id']).to eq original_recipe.id
+    end
+
+    it "Recipe has a parent title sent with it" do
+      expect(response_json['recipe']['parent']['user']).to eq original_recipe.user.name
+    end
+  end
+  
 
   describe 'Specific recipe not found' do
     let(:recipe) { create(:recipe) }

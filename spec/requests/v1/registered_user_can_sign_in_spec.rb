@@ -14,7 +14,7 @@ RSpec.describe 'Registered user can sign in', type: :request do
         provider: 'email',
         uid: 'user@craft.se',
         allow_password_change: false,
-        name: nil,
+        name: user.name,
         nickname: nil,
         image: nil } }
     expect(response_json).to eq JSON.parse(expected_response.to_json)
