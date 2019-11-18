@@ -3,6 +3,8 @@ class Recipes::ShowSerializer < ActiveModel::Serializer
 
   attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image
 
+  has_one :parent, serializer: Parents::ShowSerializer
+
   def image
     return nil unless object.image.attached?
 
