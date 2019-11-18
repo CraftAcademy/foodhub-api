@@ -17,6 +17,13 @@ RSpec.describe User, type: :model do
   describe 'associations' do
     it { is_expected.to have_many :recipes }
     it { is_expected.to have_one :cookbook }
-    it { is_expected.to have_many(:favorites).through(:cookbook).class_name('Recipe') }
+    it {
+      is_expected.to have_many(:favorites)
+        .through(:cookbook)
+    }
+    it {
+      is_expected.to have_many(:favorite_recipes)
+        .through(:favorites)
+    }
   end
 end

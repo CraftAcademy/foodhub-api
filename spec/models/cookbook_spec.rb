@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 
 RSpec.describe Cookbook, type: :model do
   it 'should have valid Factory' do
@@ -12,5 +12,9 @@ RSpec.describe Cookbook, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many :favorites }
+    it {
+      is_expected.to have_many(:recipes)
+        .through(:favorites)
+    }
   end
 end
