@@ -9,5 +9,6 @@ Rails.application.routes.draw do
       post :fork, controller: :forks, action: :create
       post :favorite, controller: :favorites, action: :create
     end
+    resources :cookbooks, only: [:create]
   end
 end

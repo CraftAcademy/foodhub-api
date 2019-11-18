@@ -202,8 +202,9 @@ module BookGeneratorService
     pdf.text 'www.foodhub.recipes',
              size: 22, style: :medium,
              leading: 10, character_spacing: 1, align: :center, color: 'FCFCFC'
-
-    pdf.render_file 'food_hub_template_draft.pdf'
+    file_name = Rails.public_path.join('food_hub_template_draft.pdf')
+    pdf.render_file file_name
+    file_name
   end
 
   def self.add_page_number(pdf, mode)

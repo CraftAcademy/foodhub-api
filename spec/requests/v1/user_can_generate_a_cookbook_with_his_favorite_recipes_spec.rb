@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'POST /v1/users/{user_id}/favorite', type: :request do
+RSpec.describe 'POST /v1/cookbooks/', type: :request do
   let!(:user) { create(:user) }
   let(:user_credentials) { user.create_new_auth_token }
   let!(:user_headers) do
@@ -24,6 +24,7 @@ RSpec.describe 'POST /v1/users/{user_id}/favorite', type: :request do
 
   describe 'adds recipe that is created by another user to collection' do
     before do
+      add_favorites
       post '/v1/cookbooks/', headers: user_headers
     end
 
@@ -32,7 +33,13 @@ RSpec.describe 'POST /v1/users/{user_id}/favorite', type: :request do
     end
 
     it 'returns sucess response' do
-      expect(response_json['message']).to eq 'The cookbook was generated and will be available for download soon'
+      expect(response_json['message'])
+        .to eq 'The cookbook was generated and is available for download'
+    end
+
+    it 'returns a valid url' do
+      expect(URI.parse(response_json['url']).class)
+        .to eq URI::HTTP || URI::HTTPS
     end
   end
 end
