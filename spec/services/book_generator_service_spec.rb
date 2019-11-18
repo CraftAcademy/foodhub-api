@@ -10,7 +10,7 @@ RSpec.describe BookGeneratorService, type: :service do
   let(:collection) { [recipe] }
 
   let!(:pdf) { BookGeneratorService.generate_book(collection) }
-  let(:pdf_file) { open(Rails.root.join('food_hub_template_draft.pdf')) }
+  let(:pdf_file) { File.open(Rails.public_path.join('food_hub_template_draft.pdf')) }
   subject { PDF::Inspector::Text.analyze_file(pdf_file) }
 
   it 'contains recipe' do
