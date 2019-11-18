@@ -75,7 +75,10 @@ RSpec.describe 'GET specific recipe' do
     end
 
     it "Recipe has a parent title sent with it" do
-      expect(response_json['recipe']['parent']['user']).to eq original_recipe.user.name
+      
+      binding.pry
+      
+      expect(response_json['recipe']['parent']['user_name']).to eq original_recipe.user.name
     end
   end
   
