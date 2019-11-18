@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :v1 do
     resources :recipes, only: %i[create index show update] do
       post :fork, controller: :forks, action: :create
+      post :favorite, controller: :favorites, action: :create
     end
   end
 end

@@ -12,13 +12,12 @@ RSpec.describe 'Forking a recipe', type: :request do
       directions: 'Cut the watermelon')
   end
 
-  let(:expected_attributes) do
+  let(:image) do
     {
-      title: 'Forked Watermelon slices',
-      ingredients: 'Watermelon',
-      directions: 'Cut the watermelon',
-      user_id: forker.id,
-      forked_from_recipe_id: Recipe.first.id
+      type: 'application/jpg',
+      encoder: 'name=new_iphone.jpg;base64',
+      data: 'iVBORw0KGgoAAAANSUhEUgAABjAAAAOmCAYAAABFYNwHAAAgAElEQVR4XuzdB3gU1cLG8Te9EEgISQi9I71KFbBXbFixN6zfvSiIjSuKInoVFOyIDcWuiKiIol4Q6SBVOtI7IYSWBkm',
+      extension: 'jpg'
     }
   end
 
@@ -27,13 +26,13 @@ RSpec.describe 'Forking a recipe', type: :request do
       post "/v1/recipes/#{original_recipe.id}/fork",
             params: {
               recipe: {
-                title: 'Watermelon slices',
-                ingredients: 'Watermelon',
-                directions: 'Cut the watermelon'
+                title: 'Vegan Watermelon slices',
+                ingredients: 'Vegan friendly Watermelon',
+                directions: 'Cut the watermelon in a veganistic way',
+                image: image
               }
             },
             headers: valid_headers
-
     end
       
     it 'returns 201 response' do
@@ -45,7 +44,7 @@ RSpec.describe 'Forking a recipe', type: :request do
     end
 
     it 'has a new title leading with "Forked"' do
-      expect(Recipe.last.title).to eq "Forked #{Recipe.first.title}"
+      expect(Recipe.last.title).to eq "Vegan Watermelon slices"
     end
   end
-end 
+end   
