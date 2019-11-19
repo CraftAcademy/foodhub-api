@@ -4,6 +4,11 @@ class V1::FavoritesController < ApplicationController
   before_action :authenticate_user!
   before_action :verify_cookbook_exist
 
+  def index
+    cookbook = current_user.cookbook
+    render json: cookbook, serializer: Cookbook::Serializer
+  end
+
   def create
     recipe = Recipe.find(params[:recipe_id])
     favorite = current_user.cookbook.favorites.create(recipe: recipe)
