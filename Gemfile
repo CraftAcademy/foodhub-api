@@ -16,7 +16,7 @@ gem 'rswag-api'
 gem 'rswag-ui'
 gem 'devise_token_auth'
 gem "pundit"
-
+gem 'prawn'
 
 group :development, :test do
   gem 'coveralls', require: false
@@ -28,6 +28,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'faker'
   gem 'pundit-matchers'
+  gem 'pdf-inspector', require: "pdf/inspector"
 end
 
 group :development do
