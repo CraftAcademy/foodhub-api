@@ -15,7 +15,7 @@ RSpec.describe 'GET /v1/users/{user_id}/favorite', type: :request do
     end
 
     it 'returns 5 recipies' do
-      expect(response_json['recipes'].count).to eq 5
+      expect(response_json['cookbook']['cookbook_recipes'].count).to eq 5
     end
   end
 end
