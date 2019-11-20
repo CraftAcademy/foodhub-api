@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class V1::RecipesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[show index]
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    if params[:user_recipes] == true
+    if params[:user_recipe] == 'true'
       recipes = current_user.recipes
     else
       recipes = Recipe.all
