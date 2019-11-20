@@ -6,7 +6,11 @@ class V1::RecipesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    recipes = Recipe.all
+    if params[:user_recipes] == true
+      recipes = current_user.recipes
+    else
+      recipes = Recipe.all
+    end
     render json: recipes, each_serializer: Recipes::IndexSerializer
   end
 
