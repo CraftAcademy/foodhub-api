@@ -42,22 +42,22 @@ module BookGeneratorService
 
     # Cover
     pdf.canvas do
-      pdf.move_down 210
-      pdf.font 'Futura'
+      pdf.move_down 100
+      pdf.font 'Condiment'
       pdf.text 'Social Cooking',
-               size: 110, align: :center, color: '08090A'
+               size: 110, align: :center, color: '111111'
       pdf.move_down -35
       pdf.text 'by',
-               size: 40, align: :center, color: '08090A'
+               size: 40, align: :center, color: '111111'
       pdf.move_down 60
-      pdf.font 'Futura'
+      pdf.font 'AbrilFatface'
       pdf.text 'FoodHub',
-               size: 78, align: :center, color: '08090A'
+               size: 78, align: :center, color: '111111'
       pdf.move_down -20
       pdf.font 'Futura'
       pdf.text 'www.foodhub.recipes',
                size: 22, style: :medium, leading: 10,
-               character_spacing: 1, align: :center, color: '08090A'
+               character_spacing: 1, align: :center, color: '111111'
     end
     # insert blank page
     pdf.start_new_page left_margin: 150, right_margin: 50
@@ -74,17 +74,17 @@ module BookGeneratorService
     random_text = 'Lorem <b>ipsum dolor</b> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     pdf.text 'Food is awesome!',
              size: 28, style: :medium, leading: 20,
-             align: :right, color: '08090A'
+             align: :right, color: '383838'
     pdf.text random_text * 3,
              inline_format: true, size: 18, style: :normal,
-             leading: 10, character_spacing: 1, final_gap: true, align: :right, color: '08090A'
+             leading: 10, character_spacing: 1, final_gap: true, align: :right, color: '383838'
     pdf.text random_text,
              inline_format: true, size: 18, style: :normal,
-             leading: 10, character_spacing: 1, align: :right, color: '08090A'
+             leading: 10, character_spacing: 1, align: :right, color: '383838'
     pdf.move_down 5
     pdf.text 'Bon Appétit!',
              size: 18, style: :medium,
-             leading: 20, align: :right, color: '08090A'
+             leading: 20, align: :right, color: '383838'
 
     # Generate recipe pages
     unless recipes.empty?
@@ -101,15 +101,15 @@ module BookGeneratorService
         end
 
         pdf.bounding_box [pdf.bounds.left - 100, pdf.bounds.top], width: 325 do
-          pdf.font 'Futura'
-          pdf.text recipe.title, size: 55, align: :left, color: '08090A'
+          pdf.font 'Condiment'
+          pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
           pdf.font 'Futura'
           pdf.fill_color 'FCFCFC'
           pdf.stroke_color '383838'
           pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
                    size: 14, style: :medium,
                    leading: 10, character_spacing: 0, align: :left,
-                   mode: :fill, color: '08090A'
+                   mode: :fill
         end
 
         pdf.bounding_box [pdf.bounds.right - 350, pdf.bounds.top - 10], width: 350 do
@@ -157,11 +157,11 @@ module BookGeneratorService
 
           pdf.text 'Directions',
                    size: 18, style: :medium,
-                   leading: 20, align: :center, color: '08090A'
+                   leading: 20, align: :center, color: '383838'
 
           pdf.text recipe.directions,
                    inline_format: true, size: 12, style: :normal,
-                   leading: 5, character_spacing: 0, align: :left, color: '08090A'
+                   leading: 5, character_spacing: 0, align: :left, color: '383838'
         end
         add_page_number(pdf, 'dark')
       end
