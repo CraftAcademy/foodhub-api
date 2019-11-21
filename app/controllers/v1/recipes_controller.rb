@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 class V1::RecipesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[show index]
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    recipes = Recipe.all
+    if params[:user_recipe] == 'true'
+      if user_signed_in?
+        recipes = current_user.recipes
+      else
+        render json: { errors: [ 'You need to sign in or sign up before continuing.' ] }, status: 401 
+        return
+      end
+    else
+      recipes = Recipe.all
+    end
     render json: recipes, each_serializer: Recipes::IndexSerializer
   end
 

@@ -1,7 +1,7 @@
 class Recipes::IndexSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   
-  attributes :id, :title, :ingredients, :directions, :image
+  attributes :id, :title, :ingredients, :directions, :image, :user_id
 
   def image
     return nil unless object.image.attached?
