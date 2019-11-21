@@ -31,7 +31,7 @@ RSpec.describe 'POST /v1/users/{user_id}/like', type: :request do
     end
 
     it 'returns 405 response' do
-      expect(response).to have_http_status 405
+      expect(response).to have_http_status 409
     end
 
     it 'returns sucess response' do
@@ -45,7 +45,7 @@ RSpec.describe 'POST /v1/users/{user_id}/like', type: :request do
     end
 
     it 'returns 405 response' do
-      expect(response).to have_http_status 405
+      expect(response).to have_http_status 409
     end
 
     it 'returns sucess response' do
