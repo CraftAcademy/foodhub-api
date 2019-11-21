@@ -7,7 +7,12 @@ class V1::RecipesController < ApplicationController
 
   def index
     if params[:user_recipe] == 'true'
-      recipes = current_user.recipes
+      if user_signed_in?
+        recipes = current_user.recipes
+      else
+        render json: { errors: [ 'You need to sign in or sign up before continuing.' ] }, status: 401 
+        return;
+      end
     else
       recipes = Recipe.all
     end
