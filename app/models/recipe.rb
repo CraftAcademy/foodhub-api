@@ -5,7 +5,7 @@ class Recipe < ApplicationRecord
   has_one_attached :image
   belongs_to :user
   belongs_to :parent, class_name: 'Recipe', optional: true
-  has_many :likes
+  has_many :ratings
 
   def fork(user, params)
     forked_recipe = self.dup

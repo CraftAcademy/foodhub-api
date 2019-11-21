@@ -52,13 +52,14 @@ ActiveRecord::Schema.define(version: 2019_11_21_174223) do
     t.index ["recipe_id"], name: "index_favorites_on_recipe_id"
   end
 
-  create_table "likes", force: :cascade do |t|
+  create_table "ratings", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "user_id", null: false
+    t.integer "score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id"], name: "index_likes_on_recipe_id"
-    t.index ["user_id"], name: "index_likes_on_user_id"
+    t.index ["recipe_id"], name: "index_ratings_on_recipe_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -106,7 +107,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_174223) do
   add_foreign_key "cookbooks", "users"
   add_foreign_key "favorites", "cookbooks"
   add_foreign_key "favorites", "recipes"
-  add_foreign_key "likes", "recipes"
-  add_foreign_key "likes", "users"
+  add_foreign_key "ratings", "recipes"
+  add_foreign_key "ratings", "users"
   add_foreign_key "recipes", "users"
 end
