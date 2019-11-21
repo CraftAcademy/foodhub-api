@@ -6,6 +6,8 @@ class Recipe < ApplicationRecord
   belongs_to :user
   belongs_to :parent, class_name: 'Recipe', optional: true
 
+  update_index('recipes') { self }
+
   def fork(user, params)
     forked_recipe = self.dup
     attributes = { 
