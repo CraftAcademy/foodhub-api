@@ -9,7 +9,7 @@ class V1::CookbooksController < ApplicationController
       attachment_url = if Rails.env.test?
                          rails_blob_url(current_user.cookbook.pdf)
                        else
-                         current_user.pdf.service_url(expires_in: 1.hour, disposition: 'inline')
+                         current_user.cookbook.pdf.service_url(expires_in: 1.hour, disposition: 'inline')
                         end
       render json: {
         message: 'The cookbook was generated and is available for download',
