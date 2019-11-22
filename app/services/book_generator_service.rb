@@ -32,7 +32,7 @@ module BookGeneratorService
 
     pdf.font_families.update('AbrilFatface' => {
                                normal: Rails.public_path
-                               .join('abril_fatface_regular.ttf')
+                               .join('raleway_regular.ttf')
                              })
 
     pdf.font_families.update('Condiment' => {
