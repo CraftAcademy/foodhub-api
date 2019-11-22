@@ -21,6 +21,7 @@ RSpec.describe Recipe, type: :model do
     it { is_expected.to validate_presence_of :directions }
     it { is_expected.to validate_length_of(:ingredients).is_at_most(500) }
     it { is_expected.to validate_length_of(:directions).is_at_most(5000) }
+    it { is_expected.to validate_length_of(:description).is_at_most(500) }
   end
 
   describe 'associations' do
