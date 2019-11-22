@@ -20,9 +20,9 @@ RSpec.describe 'V1::Recipes', type: :request do
              params: {
                recipe: {
                  title: 'Meatballs',
+                 description: 'A family dish',
                  ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
                  directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)',
-                 description: 'A family dish',
                  image: image
                }
              },
