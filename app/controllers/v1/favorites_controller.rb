@@ -11,11 +11,16 @@ class V1::FavoritesController < ApplicationController
 
   def create
     recipe = Recipe.find(params[:recipe_id])
-    favorite = current_user.cookbook.favorites.create(recipe: recipe)
+    if current_user.cookbook.recipes.where(id: recipe.id).empty?
+      favorite = current_user.cookbook.favorites.create(recipe: recipe)
 
-    if favorite.persisted?
-      render json: {message: 'The recipe was successfully added to your favorites'}, status: 201
+      if favorite.persisted?
+        render json: {message: 'The recipe was successfully added to your favorites'}, status: 201
+      end
+    else     
+      render json: {message: 'You have already added this recipe to your cookbook'}, status: 409
     end
+    
   end
 
   private

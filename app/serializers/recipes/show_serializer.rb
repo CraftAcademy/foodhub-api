@@ -1,7 +1,7 @@
 class Recipes::ShowSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image, :rating, :user_rating, :description
+  attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image, :rating, :user_rating, :added_to_user_cookbook, :description
 
   has_one :parent, serializer: Parents::ShowSerializer
 
@@ -17,6 +17,17 @@ class Recipes::ShowSerializer < ActiveModel::Serializer
 
   def user_name
     object.user.name
+  end
+
+  def added_to_user_cookbook
+    return nil unless current_user.present?
+    return false unless current_user.cookbook.present?
+
+    if current_user.cookbook.recipes.where(id: object.id).empty?
+      false
+    else
+      true
+    end
   end
 
   def user_rating

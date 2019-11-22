@@ -7,5 +7,3 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 user = User.create(email: 'user@mail.com', password: 'password', name: 'User_1')
 second_user = User.create(email: 'user_2@mail.com', password: 'password', name: 'User_2')
-
-recipe = Recipe.create(title: 'Lasagna', ingredients: 'Tomato, cheese, beef', directions: '1. Make it', user: second_user)
