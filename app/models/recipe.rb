@@ -1,7 +1,8 @@
 class Recipe < ApplicationRecord
-  validates_presence_of :title, :ingredients, :directions
+  validates_presence_of :title, :ingredients, :directions, :description
   validates_length_of :ingredients, maximum: 500
   validates_length_of :directions, maximum: 5000
+  validates_length_of :description, maximum: 500
   has_one_attached :image
   belongs_to :user
   belongs_to :parent, class_name: 'Recipe', optional: true
@@ -15,6 +16,7 @@ class Recipe < ApplicationRecord
       title: params[:title],
       ingredients: params[:ingredients],
       directions: params[:directions],
+      description: params[:description],
       user_id: user.id,
       parent_id: self.id
     }
