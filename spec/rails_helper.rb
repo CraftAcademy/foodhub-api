@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'coveralls'
 Coveralls.wear_merged!('rails')
 
@@ -9,7 +11,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'pundit/matchers'
-
+require 'elasticsearch/extensions/test/cluster'
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -20,7 +22,6 @@ module ResponseJSON
     JSON.parse(response.body)
   end
 end
-
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
@@ -30,5 +31,4 @@ RSpec.configure do |config|
   config.include ResponseJSON, type: :request
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include Shoulda::Matchers::ActiveModel, type: :model
-
 end

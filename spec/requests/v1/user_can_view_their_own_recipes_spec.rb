@@ -1,4 +1,4 @@
-RSpec.describe 'GET recipes index' do
+RSpec.describe 'GET recipes index', type: :request do
   describe 'Listing user recipes' do
     let!(:recipe_1) { create(:recipe) }
     let!(:user) { create(:user) }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'GET recipes index' do
+RSpec.describe 'GET recipes index', type: :request do
   describe 'Listing recipes' do
     let!(:recipes) { 2.times { create(:recipe) } }
     let(:user) { create(:user) }
