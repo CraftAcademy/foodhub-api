@@ -32,28 +32,30 @@ module BookGeneratorService
 
     pdf.font_families.update('AbrilFatface' => {
                                normal: Rails.public_path
-                               .join('raleway_regular.ttf')
+                               .join('raleway_black.ttf')
                              })
 
     pdf.font_families.update('Condiment' => {
                                normal: Rails.public_path
-                               .join('condiment_regular.ttf')
+                               .join('lato_regular.ttf')
                              })
 
     # Cover
-    pdf.canvas do
-      pdf.move_down 150
+    pdf.bounding_box [pdf.bounds.left - 50, pdf.bounds.top], width: 600 do
+      pdf.move_down 100
       pdf.font 'Condiment'
       pdf.text 'Social Cooking',
-               size: 110, align: :center, color: '111111'
-      pdf.move_down 35
+               size: 60, align: :center, color: '111111'
+      pdf.move_down 10
       pdf.text 'by',
-               size: 40, align: :center, color: '111111'
-      pdf.move_down 60
+               size: 20, align: :center, color: '111111'
+      pdf.move_down 20
       pdf.font 'AbrilFatface'
       pdf.text 'FOODHUB',
-               size: 78, align: :center, color: '111111'
-      pdf.move_down -20
+               size: 50, align: :center, color: '111111'
+      
+      
+               pdf.move_down -10
       pdf.font 'Futura'
       pdf.text 'www.foodhub.recipes',
                size: 22, style: :medium, leading: 10,
@@ -72,13 +74,13 @@ module BookGeneratorService
     pdf.move_down (pdf.bounds.height / 2) - 180
     pdf.font 'Futura'
     random_text =
-    'Thank you for choosing to create this collection of
-    the recipes you love most! Food brings people together and
-    this is our intent with this cookbook - filled with
-    shared recipes from your FOODHUB connections.
-    We hope you enjoy the recipes as much as we
-    enjoyed making this cookbook for you!
-    Made with love by the FOODHUB team.'
+      'Thank you for choosing to create this collection of
+      the recipes you love most! Food brings people together and
+      this is our intent with this cookbook - filled with
+      shared recipes from your FOODHUB connections.
+      We hope you enjoy the recipes as much as we
+      enjoyed making this cookbook for you!
+      Made with love by the FOODHUB team.'
     pdf.text 'Your FOODHUB cookbook!',
              size: 28, style: :medium, leading: 20,
              align: :right, color: '383838'
