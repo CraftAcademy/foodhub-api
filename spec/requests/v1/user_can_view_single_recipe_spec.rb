@@ -14,8 +14,10 @@ RSpec.describe 'GET specific recipe' do
             ingredients: 'Cookie ingredients, chocolate chips.',
             directions: 'Make the cookies.')
     end
+    let(:cookbook) { create(:cookbook, user_id: user_1.id) }
     
     before do
+      create(:favorite, cookbook_id: cookbook.id, recipe_id: recipe.id)
       create(:rating, score: 1, user_id: user_1.id, recipe_id: recipe.id)
       create(:rating, score: 3, user_id: user_2.id, recipe_id: recipe.id)
       create(:rating, score: 5, user_id: user_3.id, recipe_id: recipe.id)
@@ -45,11 +47,30 @@ RSpec.describe 'GET specific recipe' do
     it "Recipe has a rating" do
       expect(response_json['recipe']['rating']).to eq 3
     end
+
+    it "Recipe shows if current user has added recipe to their cookbook" do
+      expect(response_json['recipe']['added_to_user_cookbook']).to eq true
+    end
     
     it 'Recipe has a user_rating' do
       expect(response_json['recipe']['user_rating']).to eq 1
     end
   end
+
+
+  describe "visior can view a single recipe" do
+    let!(:headers) { { HTTP_ACCEPT: 'application/json' }}
+    let(:original_recipe) { create(:recipe, user: user, title: 'Lasagna') }
+    let(:forked_recipe) {
+      create(
+        :recipe,
+        parent_id: original_recipe.id,
+        user: another_user,
+        title: 'Vegan Lasagna'
+      )
+    }
+  end
+  
 
 
   describe "user can view a forked recipe" do
@@ -90,6 +111,10 @@ RSpec.describe 'GET specific recipe' do
 
     it "Recipe has a parent id sent with it" do
       expect(response_json['recipe']['parent']['id']).to eq original_recipe.id
+    end
+
+    it "Recipe shows if current user has added recipe to their cookbook" do
+      expect(response_json['recipe']['added_to_user_cookbook']).to eq false
     end
 
     it "Recipe has a parent title sent with it" do
