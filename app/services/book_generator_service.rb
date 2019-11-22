@@ -53,9 +53,8 @@ module BookGeneratorService
       pdf.font 'Raleway'
       pdf.text 'FOODHUB',
                size: 50, align: :center, color: '111111'
-      
-      
-               pdf.move_down -10
+
+      pdf.move_down -10
       pdf.font 'Futura'
       pdf.text 'www.foodhub.recipes',
                size: 22, style: :medium, leading: 10,
@@ -73,7 +72,7 @@ module BookGeneratorService
     pdf.start_new_page left_margin: 150, right_margin: 50
     pdf.move_down (pdf.bounds.height / 2) - 180
     pdf.font 'Futura'
-    random_text =
+    intro_text =
       'Thank you for choosing to create this collection of
       the recipes you love most! Food brings people together and
       this is our intent with this cookbook - filled with
@@ -84,7 +83,7 @@ module BookGeneratorService
     pdf.text 'Your FOODHUB cookbook!',
              size: 28, style: :medium, leading: 20,
              align: :right, color: '383838'
-    pdf.text random_text,
+    pdf.text intro_text,
              inline_format: true, size: 18, style: :normal,
              leading: 10, character_spacing: 1, align: :right, color: '383838'
     pdf.move_down 5
@@ -99,16 +98,18 @@ module BookGeneratorService
         pdf.start_new_page left_margin: 150, right_margin: 50
         pdf.canvas do
           pdf.image(Rails.env.test? ?
-            File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) :
-            open(recipe.image.service_url),
+            # File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) :
+            File.open(recipe.image.variant(resize: '2480X3508')
+            .blob.service.send(:path_for, recipe.image.key)) :
+            open(recipe.image.variant(resize: '2480X3508')
+            .processed.service_url),
                     width: pdf.bounds.width,
-                    height: pdf.bounds.height,
                     at: pdf.bounds.top_left)
         end
 
         pdf.bounding_box [pdf.bounds.left - 100, pdf.bounds.top], width: 325 do
-          pdf.font 'Lato'
-          pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
+          pdf.font 'Raleway'
+          pdf.text recipe.title.upcase, size: 55, align: :left, color: 'FCFCFC'
           pdf.font 'Futura'
           pdf.fill_color 'FCFCFC'
           pdf.stroke_color '383838'
@@ -197,7 +198,7 @@ module BookGeneratorService
     # Back
     pdf.start_new_page left_margin: 0, right_margin: 0
     pdf.canvas do
-      pdf.fill_color '202D38'
+      pdf.fill_color 'AE5C32'
       pdf.fill_rectangle [pdf.bounds.left, pdf.bounds.top], pdf.bounds.right, pdf.bounds.top
     end
     pdf.move_down (pdf.bounds.height / 2) - 20
