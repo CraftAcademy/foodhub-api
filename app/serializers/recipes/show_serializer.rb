@@ -1,7 +1,7 @@
 class Recipes::ShowSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image, :rating, :user_rating, :added_to_user_cookbook
+  attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image, :rating, :user_rating, :added_to_user_cookbook, :description
 
   has_one :parent, serializer: Parents::ShowSerializer
 

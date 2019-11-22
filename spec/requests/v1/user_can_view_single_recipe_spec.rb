@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'GET specific recipe' do
+RSpec.describe 'GET specific recipe', type: :request do
   describe 'user can view a specific original recipe' do
     let(:user_1) { create(:user) }
     let(:user_2) { create(:user) }

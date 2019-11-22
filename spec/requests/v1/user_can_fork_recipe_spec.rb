@@ -9,7 +9,8 @@ RSpec.describe 'Forking a recipe', type: :request do
     create(:recipe, 
       title: 'Watermelon slices', 
       ingredients: 'Watermelon',
-      directions: 'Cut the watermelon')
+      directions: 'Cut the watermelon',
+      description: 'A classic dish')
   end
 
   let(:image) do
@@ -29,6 +30,7 @@ RSpec.describe 'Forking a recipe', type: :request do
                 title: 'Vegan Watermelon slices',
                 ingredients: 'Vegan friendly Watermelon',
                 directions: 'Cut the watermelon in a veganistic way',
+                description: 'A classic vegan dish',
                 image: image
               }
             },
@@ -43,7 +45,7 @@ RSpec.describe 'Forking a recipe', type: :request do
       expect(response_json['message']).to eq 'The recipe was successfully forked'
     end
 
-    it 'has a new title leading with "Forked"' do
+    it 'has a new title' do
       expect(Recipe.last.title).to eq "Vegan Watermelon slices"
     end
   end

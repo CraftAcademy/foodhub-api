@@ -59,6 +59,7 @@ RSpec.describe 'V1::Recipes', type: :request do
       response '201', 'recipe created' do
         let(:recipe) do
           { title: 'Meatballs',
+            description: 'A family dish',
             ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
             directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)' }
         end
@@ -71,6 +72,7 @@ RSpec.describe 'V1::Recipes', type: :request do
       response '422', 'invalid request' do
         let(:recipe) do
           { title: '',
+            description: '',
             ingredients: '',
             directions: '' }
         end
@@ -92,6 +94,7 @@ RSpec.describe 'V1::Recipes', type: :request do
               properties: {
                 id: { type: :integer },
                 title: { type: :string },
+                description: { type: :string },
                 ingredients: { type: :string },
                 directions: { type: :string }
               }
@@ -119,6 +122,7 @@ RSpec.describe 'V1::Recipes', type: :request do
             properties: {
               id: { type: :integer },
               title: { type: :string },
+              description: { type: :string },
               ingredients: { type: :string },
               directions: { type: :string }
             }
@@ -138,6 +142,7 @@ RSpec.describe 'V1::Recipes', type: :request do
         type: :object,
         properties: {
           title: { type: :string, example: 'Swedish Meatballs' },
+          description: { type: :string, example: 'A family dish' },
           ingredients: { type: :string, example: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion' },
           directions: { type: :string, example: 'In large bowl, place 3 lb lean ground beef...' },
           image: { type: :string, 'x-nullable': true, example: 'Base64 encoded image' }
@@ -176,6 +181,7 @@ RSpec.describe 'V1::Recipes', type: :request do
       response '201', 'Updates recipe instance' do
         let(:recipe) do
           { title: 'New Meatballs',
+            description: 'A family dish',
             ingredients: 'Minced meat, bacon, bread crumbs, cream, medium white chopped onion',
             directions: 'In large bowl, place 3 lb lean ground beef, chopped 1 medium white onion, 3 tablespoons dried oregano leaves and 1/4 cup bread crumbs. Place large ovenproof skillet over medium-high heat; pour reserved bacon drippings into skillet. Add meatballs; cook about 3 minutes on each side or just until seared. (You may have to do this in batches.)' }
         end

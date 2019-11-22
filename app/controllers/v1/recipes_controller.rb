@@ -10,7 +10,9 @@ class V1::RecipesController < ApplicationController
       if user_signed_in?
         recipes = current_user.recipes
       else
-        render json: { errors: [ 'You need to sign in or sign up before continuing.' ] }, status: 401 
+        render json: {
+          errors: ['You need to sign in or sign up before continuing.'] },
+          status: 401
         return
       end
     else
@@ -48,7 +50,7 @@ class V1::RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :ingredients, :directions)
+    params.require(:recipe).permit(:title, :ingredients, :directions, :description)
   end
 
   def record_not_found
