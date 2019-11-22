@@ -20,8 +20,9 @@ class Recipes::ShowSerializer < ActiveModel::Serializer
   end
 
   def added_to_user_cookbook
-    return false unless current_user.present? && current_user.cookbook.present?
-    
+    return nil unless current_user.present?
+    return false unless current_user.cookbook.present?
+
     if current_user.cookbook.recipes.where(id: object.id).empty?
       false
     else
