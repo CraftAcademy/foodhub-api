@@ -22,6 +22,7 @@ RSpec.describe Recipe, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to :user }
+    it { is_expected.to have_many :ratings }
     it do
       is_expected.to belong_to(:parent)
         .class_name('Recipe')

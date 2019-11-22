@@ -5,14 +5,15 @@ class Recipe < ApplicationRecord
   has_one_attached :image
   belongs_to :user
   belongs_to :parent, class_name: 'Recipe', optional: true
+  has_many :ratings
 
   def fork(user, params)
     forked_recipe = self.dup
-    attributes = { 
-      title: params[:title],  
+    attributes = {
+      title: params[:title],
       ingredients: params[:ingredients],
       directions: params[:directions],
-      user_id: user.id, 
+      user_id: user.id,
       parent_id: self.id
     }
     forked_recipe.update(attributes)
