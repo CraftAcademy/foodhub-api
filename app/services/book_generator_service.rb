@@ -30,30 +30,31 @@ module BookGeneratorService
                                .join('futura_light.ttf')
                              })
 
-    pdf.font_families.update('AbrilFatface' => {
+    pdf.font_families.update('Raleway' => {
                                normal: Rails.public_path
-                               .join('abril_fatface_regular.ttf')
+                               .join('raleway_black.ttf')
                              })
 
-    pdf.font_families.update('Condiment' => {
+    pdf.font_families.update('Lato' => {
                                normal: Rails.public_path
-                               .join('condiment_regular.ttf')
+                               .join('lato_regular.ttf')
                              })
 
     # Cover
-    pdf.canvas do
+    pdf.bounding_box [pdf.bounds.left - 50, pdf.bounds.top], width: 600 do
       pdf.move_down 100
-      pdf.font 'Condiment'
+      pdf.font 'Lato'
       pdf.text 'Social Cooking',
-               size: 110, align: :center, color: '111111'
-      pdf.move_down -35
+               size: 60, align: :center, color: '111111'
+      pdf.move_down 10
       pdf.text 'by',
-               size: 40, align: :center, color: '111111'
-      pdf.move_down 60
-      pdf.font 'AbrilFatface'
-      pdf.text 'FoodHub',
-               size: 78, align: :center, color: '111111'
-      pdf.move_down -20
+               size: 20, align: :center, color: '111111'
+      pdf.move_down 20
+      pdf.font 'Raleway'
+      pdf.text 'FOODHUB',
+               size: 50, align: :center, color: '111111'
+
+      pdf.move_down -10
       pdf.font 'Futura'
       pdf.text 'www.foodhub.recipes',
                size: 22, style: :medium, leading: 10,
@@ -71,14 +72,18 @@ module BookGeneratorService
     pdf.start_new_page left_margin: 150, right_margin: 50
     pdf.move_down (pdf.bounds.height / 2) - 180
     pdf.font 'Futura'
-    random_text = 'Lorem <b>ipsum dolor</b> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    pdf.text 'Food is awesome!',
+    intro_text =
+      'Thank you for choosing to create this collection of
+      the recipes you love most! Food brings people together and
+      this is our intent with this cookbook - filled with
+      shared recipes from your FOODHUB connections.
+      We hope you enjoy the recipes as much as we
+      enjoyed making this cookbook for you!
+      Made with love by the FOODHUB team.'
+    pdf.text 'Your FOODHUB cookbook!',
              size: 28, style: :medium, leading: 20,
              align: :right, color: '383838'
-    pdf.text random_text * 3,
-             inline_format: true, size: 18, style: :normal,
-             leading: 10, character_spacing: 1, final_gap: true, align: :right, color: '383838'
-    pdf.text random_text,
+    pdf.text intro_text,
              inline_format: true, size: 18, style: :normal,
              leading: 10, character_spacing: 1, align: :right, color: '383838'
     pdf.move_down 5
@@ -93,16 +98,18 @@ module BookGeneratorService
         pdf.start_new_page left_margin: 150, right_margin: 50
         pdf.canvas do
           pdf.image(Rails.env.test? ?
-            File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) :
-            open(recipe.image.service_url),
+            # File.open(recipe.image.blob.service.send(:path_for, recipe.image.key)) :
+            File.open(recipe.image.variant(resize: '2480X3508')
+            .blob.service.send(:path_for, recipe.image.key)) :
+            open(recipe.image.variant(resize: '2480X3508')
+            .processed.service_url),
                     width: pdf.bounds.width,
-                    height: pdf.bounds.height,
                     at: pdf.bounds.top_left)
         end
 
         pdf.bounding_box [pdf.bounds.left - 100, pdf.bounds.top], width: 325 do
-          pdf.font 'Condiment'
-          pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
+          pdf.font 'Raleway'
+          pdf.text recipe.title.upcase, size: 55, align: :left, color: 'FCFCFC'
           pdf.font 'Futura'
           pdf.fill_color 'FCFCFC'
           pdf.stroke_color '383838'
@@ -191,7 +198,7 @@ module BookGeneratorService
     # Back
     pdf.start_new_page left_margin: 0, right_margin: 0
     pdf.canvas do
-      pdf.fill_color '202D38'
+      pdf.fill_color 'AE5C32'
       pdf.fill_rectangle [pdf.bounds.left, pdf.bounds.top], pdf.bounds.right, pdf.bounds.top
     end
     pdf.move_down (pdf.bounds.height / 2) - 20
