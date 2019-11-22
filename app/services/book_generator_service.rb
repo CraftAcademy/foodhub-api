@@ -42,11 +42,11 @@ module BookGeneratorService
 
     # Cover
     pdf.canvas do
-      pdf.move_down 100
+      pdf.move_down 150
       pdf.font 'Condiment'
       pdf.text 'Social Cooking',
                size: 110, align: :center, color: '111111'
-      pdf.move_down -35
+      pdf.move_down 35
       pdf.text 'by',
                size: 40, align: :center, color: '111111'
       pdf.move_down 60
