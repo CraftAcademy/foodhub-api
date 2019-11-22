@@ -11,13 +11,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise_token_auth'
 gem 'mini_magick'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'prawn'
 gem 'puma', '~> 3.11'
 gem 'pundit'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.0.0'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'prawn'
+gem 'chewy'
 
 group :development, :test do
   gem 'coveralls', require: false
@@ -30,6 +31,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rswag-specs'
   gem 'shoulda-matchers'
+  gem 'elasticsearch-extensions'
 end
 
 group :development do

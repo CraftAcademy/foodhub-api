@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe 'GET specific recipe' do
+RSpec.describe 'GET specific recipe', type: :request do
   describe 'user can view a specific original recipe' do
-    let(:user) { create(:user) }
-    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_1) { create(:user) }
+    let(:user_2) { create(:user) }
+    let(:user_3) { create(:user) }
+
+    let(:user_credentials) { user_1.create_new_auth_token }
     let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
     let(:recipe) do
       create(:recipe,
@@ -11,6 +14,63 @@ RSpec.describe 'GET specific recipe' do
             ingredients: 'Cookie ingredients, chocolate chips.',
             directions: 'Make the cookies.')
     end
+    let(:cookbook) { create(:cookbook, user_id: user_1.id) }
+    
+    before do
+      create(:favorite, cookbook_id: cookbook.id, recipe_id: recipe.id)
+      create(:rating, score: 1, user_id: user_1.id, recipe_id: recipe.id)
+      create(:rating, score: 3, user_id: user_2.id, recipe_id: recipe.id)
+      create(:rating, score: 5, user_id: user_3.id, recipe_id: recipe.id)
+      get "/v1/recipes/#{recipe.id}", headers: headers
+    end
+
+    it 'Returns a successful response status' do
+      expect(response).to have_http_status 200
+    end
+
+    it 'Recipe has a title' do
+      expect(response_json['recipe']['title']).to eq 'Cookies'
+    end
+
+    it 'Recipe has content' do
+      expect(response_json['recipe']['ingredients']).to eq 'Cookie ingredients, chocolate chips.'
+    end
+
+    it 'Recipe has directions' do
+      expect(response_json['recipe']['directions']).to eq 'Make the cookies.'
+    end
+
+    it "Recipe does not have parent " do
+      expect(response_json['recipe']['parent']).to eq nil
+    end
+
+    it "Recipe has a rating" do
+      expect(response_json['recipe']['rating']).to eq 3
+    end
+
+    it "Recipe shows if current user has added recipe to their cookbook" do
+      expect(response_json['recipe']['added_to_user_cookbook']).to eq true
+    end
+    
+    it 'Recipe has a user_rating' do
+      expect(response_json['recipe']['user_rating']).to eq 1
+    end
+
+    it "Recipe has a description" do
+      expect(response_json['recipe']['description']).to eq recipe.description
+    end 
+  end
+
+
+  describe "visior can view a single recipe" do
+    let!(:headers) { { HTTP_ACCEPT: 'application/json' }}
+    let(:recipe) do
+      create(:recipe,
+            title: 'Cookies',
+            ingredients: 'Cookie ingredients, chocolate chips.',
+            directions: 'Make the cookies.')
+    end
+
     before do
       get "/v1/recipes/#{recipe.id}", headers: headers
     end
@@ -34,8 +94,24 @@ RSpec.describe 'GET specific recipe' do
     it "Recipe does not have parent " do
       expect(response_json['recipe']['parent']).to eq nil
     end
+
+    it "Recipe has a rating" do
+      expect(response_json['recipe']['rating']).to eq nil
+    end
+
+    it "Recipe shows if current user has added recipe to their cookbook" do
+      expect(response_json['recipe']['added_to_user_cookbook']).to eq nil
+    end
     
+    it 'Recipe has a user_rating' do
+      expect(response_json['recipe']['user_rating']).to eq nil
+    end
+
+    it "Recipe has a description" do
+      expect(response_json['recipe']['description']).to eq recipe.description
+    end 
   end
+  
 
 
   describe "user can view a forked recipe" do
@@ -66,12 +142,20 @@ RSpec.describe 'GET specific recipe' do
       expect(response_json['recipe']['title']).to eq forked_recipe.title
     end
 
+    it 'Recipe does not have a user_rating' do
+      expect(response_json['recipe']['user_rating']).to eq nil
+    end
+
     it "Recipe has a parent title sent with it" do
       expect(response_json['recipe']['parent']['title']).to eq original_recipe.title
     end
 
     it "Recipe has a parent id sent with it" do
       expect(response_json['recipe']['parent']['id']).to eq original_recipe.id
+    end
+
+    it "Recipe shows if current user has added recipe to their cookbook" do
+      expect(response_json['recipe']['added_to_user_cookbook']).to eq false
     end
 
     it "Recipe has a parent title sent with it" do

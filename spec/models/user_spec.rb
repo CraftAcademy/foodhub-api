@@ -16,6 +16,7 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many :recipes }
+    it { is_expected.to have_many :ratings }
     it { is_expected.to have_one :cookbook }
     it {
       is_expected.to have_many(:favorites)

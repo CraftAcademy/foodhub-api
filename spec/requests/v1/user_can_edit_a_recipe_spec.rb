@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Update specific recipe' do
+RSpec.describe 'Update specific recipe', type: :request do
   let!(:creator) { create(:user) }
   let(:creator_credentials) { creator.create_new_auth_token }
   let!(:creator_headers) do

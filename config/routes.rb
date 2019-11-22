@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   namespace :v1 do
     get :favorites, controller: :favorites, action: :index
     resources :recipes, only: %i[create index show update] do
+      post :rating, controller: :ratings, action: :create
       post :fork, controller: :forks, action: :create
       post :favorite, controller: :favorites, action: :create
     end
     resources :cookbooks, only: [:create]
+    resource :search, controller: :search, only: [:create]
   end
 end

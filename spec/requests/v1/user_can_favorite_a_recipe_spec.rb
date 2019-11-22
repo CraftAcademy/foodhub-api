@@ -48,4 +48,20 @@ RSpec.describe 'POST /v1/users/{user_id}/favorite', type: :request do
       expect(response_json['message']).to eq 'The recipe was successfully added to your favorites'
     end
   end
+
+  describe "tries to add recipe that is already added to their cookbook " do
+    before do
+      cookbook = create(:cookbook, user_id: impressed_user.id)
+      create(:favorite, cookbook_id: cookbook.id, recipe_id: recipe_2.id)
+      post "/v1/recipes/#{recipe_2.id}/favorite", headers: impressed_user_headers
+    end
+
+    it 'returns 409 response' do
+      expect(response).to have_http_status 409
+    end
+
+    it 'returns error message' do
+      expect(response_json['message']).to eq 'You have already added this recipe to your cookbook'
+    end
+  end
 end
