@@ -30,12 +30,12 @@ module BookGeneratorService
                                .join('futura_light.ttf')
                              })
 
-    pdf.font_families.update('AbrilFatface' => {
+    pdf.font_families.update('Raleway' => {
                                normal: Rails.public_path
                                .join('raleway_black.ttf')
                              })
 
-    pdf.font_families.update('Condiment' => {
+    pdf.font_families.update('Lato' => {
                                normal: Rails.public_path
                                .join('lato_regular.ttf')
                              })
@@ -43,14 +43,14 @@ module BookGeneratorService
     # Cover
     pdf.bounding_box [pdf.bounds.left - 50, pdf.bounds.top], width: 600 do
       pdf.move_down 100
-      pdf.font 'Condiment'
+      pdf.font 'Lato'
       pdf.text 'Social Cooking',
                size: 60, align: :center, color: '111111'
       pdf.move_down 10
       pdf.text 'by',
                size: 20, align: :center, color: '111111'
       pdf.move_down 20
-      pdf.font 'AbrilFatface'
+      pdf.font 'Raleway'
       pdf.text 'FOODHUB',
                size: 50, align: :center, color: '111111'
       
@@ -107,7 +107,7 @@ module BookGeneratorService
         end
 
         pdf.bounding_box [pdf.bounds.left - 100, pdf.bounds.top], width: 325 do
-          pdf.font 'Condiment'
+          pdf.font 'Lato'
           pdf.text recipe.title, size: 55, align: :left, color: 'FCFCFC'
           pdf.font 'Futura'
           pdf.fill_color 'FCFCFC'
