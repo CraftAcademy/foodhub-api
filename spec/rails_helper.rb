@@ -22,7 +22,6 @@ module ResponseJSON
     JSON.parse(response.body)
   end
 end
-
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = true
@@ -32,20 +31,4 @@ RSpec.configure do |config|
   config.include ResponseJSON, type: :request
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include Shoulda::Matchers::ActiveModel, type: :model
-
-  config.before(:each, type: :search_request) do
-    Chewy.strategy(:bypass)
-    unless Elasticsearch::Extensions::Test::Cluster.running?(on: 9250)
-      Elasticsearch::Extensions::Test::Cluster.start(
-        port: 9250,
-        nodes: 1,
-        timeout: 120
-      )
-    end
-    RecipesIndex.create! unless RecipesIndex.exists?
-  end
-
-  config.after(:each, type: :search_request) do
-    RecipesIndex.delete
-  end
 end
