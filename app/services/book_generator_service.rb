@@ -71,13 +71,17 @@ module BookGeneratorService
     pdf.start_new_page left_margin: 150, right_margin: 50
     pdf.move_down (pdf.bounds.height / 2) - 180
     pdf.font 'Futura'
-    random_text = 'Lorem <b>ipsum dolor</b> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    pdf.text 'Food is awesome!',
+    random_text =
+    'Thank you for choosing to create this collection of
+    the recipes you love most! Food brings people together and
+    this is our intent with this cookbook - filled with
+    shared recipes from your FOODHUB connections.
+    We hope you enjoy the recipes as much as we
+    enjoyed making this cookbook for you!
+    Made with love by the FOODHUB team.'
+    pdf.text 'Your FOODHUB cookbook!',
              size: 28, style: :medium, leading: 20,
              align: :right, color: '383838'
-    pdf.text random_text * 3,
-             inline_format: true, size: 18, style: :normal,
-             leading: 10, character_spacing: 1, final_gap: true, align: :right, color: '383838'
     pdf.text random_text,
              inline_format: true, size: 18, style: :normal,
              leading: 10, character_spacing: 1, align: :right, color: '383838'
