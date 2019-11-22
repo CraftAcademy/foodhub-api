@@ -40,17 +40,33 @@ module BookGeneratorService
                                .join('condiment_regular.ttf')
                              })
 
+    pdf.font_families.update('Raleway' => {
+                               bold: Rails.public_path
+                               .join('futura_medium.ttf'),
+                               medium: Rails.public_path
+                               .join('futura_medium.ttf'),
+                               normal: Rails.public_path
+                               .join('raleway_black.ttf')
+                             })
+
+    pdf.font_families.update('Lato' => {
+                              medium: Rails.public_path
+                              .join('lato_regular.ttf'),
+                              normal: Rails.public_path
+                              .join('lato_light.ttf')
+                             })
+
     # Cover
     pdf.canvas do
       pdf.move_down 100
-      pdf.font 'Condiment'
+      pdf.font 'Raleway'
       pdf.text 'Social Cooking',
                size: 110, align: :center, color: '111111'
-      pdf.move_down -35
+      pdf.move_down 20
       pdf.text 'by',
                size: 40, align: :center, color: '111111'
-      pdf.move_down 60
-      pdf.font 'AbrilFatface'
+      pdf.move_down 30
+      pdf.font 'Futura'
       pdf.text 'FoodHub',
                size: 78, align: :center, color: '111111'
       pdf.move_down -20
