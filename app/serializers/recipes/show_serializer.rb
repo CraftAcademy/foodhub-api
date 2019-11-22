@@ -1,7 +1,7 @@
 class Recipes::ShowSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image
+  attributes :id, :title, :ingredients, :directions, :user_name, :user_id, :image, :rating
 
   has_one :parent, serializer: Parents::ShowSerializer
 
@@ -17,5 +17,11 @@ class Recipes::ShowSerializer < ActiveModel::Serializer
 
   def user_name
     object.user.name
+  end
+
+  def rating    
+    return nil if object.ratings.empty?
+
+    object.ratings.sum(&:score)/object.ratings.count
   end
 end

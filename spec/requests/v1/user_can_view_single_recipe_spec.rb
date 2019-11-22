@@ -11,7 +11,11 @@ RSpec.describe 'GET specific recipe' do
             ingredients: 'Cookie ingredients, chocolate chips.',
             directions: 'Make the cookies.')
     end
+    
     before do
+      create(:rating, score: 1, user_id: user.id, recipe_id: recipe.id)
+      create(:rating, score: 3, user_id: user.id, recipe_id: recipe.id)
+      create(:rating, score: 5, user_id: user.id, recipe_id: recipe.id)
       get "/v1/recipes/#{recipe.id}", headers: headers
     end
 
@@ -33,6 +37,10 @@ RSpec.describe 'GET specific recipe' do
 
     it "Recipe does not have parent " do
       expect(response_json['recipe']['parent']).to eq nil
+    end
+
+    it "Recipe has a rating" do
+      expect(response_json['recipe']['rating']).to eq 3
     end
     
   end

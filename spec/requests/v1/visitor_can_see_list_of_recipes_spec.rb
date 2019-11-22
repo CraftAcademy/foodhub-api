@@ -3,8 +3,11 @@
 RSpec.describe 'GET recipes index' do
   describe 'Listing recipes' do
     let!(:recipes) { 2.times { create(:recipe) } }
+    let(:user) { create(:user) }
     let(:headers) {{ HTTP_ACCEPT: 'application/json' }}
     before do
+      recipe = Recipe.first
+      10.times { create(:rating, user_id: user.id, recipe_id: recipe.id)}
       get '/v1/recipes', headers: headers
     end
 
@@ -26,6 +29,10 @@ RSpec.describe 'GET recipes index' do
 
     it 'Recipe has instructions' do
       expect(response_json['recipes'].first['directions']).to eq Recipe.first.directions
+    end
+
+    it "Recipe has a rating" do
+      expect(response_json['recipes'].first).to include 'rating'
     end
   end
 
