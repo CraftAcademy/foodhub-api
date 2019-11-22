@@ -1,4 +1,6 @@
 class V1::RatingsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     recipe = Recipe.find(params[:recipe_id])
     if recipe.user_id != current_user.id
