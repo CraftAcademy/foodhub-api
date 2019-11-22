@@ -51,7 +51,7 @@ module BookGeneratorService
                size: 40, align: :center, color: '111111'
       pdf.move_down 60
       pdf.font 'AbrilFatface'
-      pdf.text 'FoodHub',
+      pdf.text 'FOODHUB',
                size: 78, align: :center, color: '111111'
       pdf.move_down -20
       pdf.font 'Futura'
