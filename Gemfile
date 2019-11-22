@@ -30,6 +30,7 @@ group :development, :test do
   gem 'faker'
   gem 'pundit-matchers'
   gem 'pdf-inspector', require: "pdf/inspector"
+  gem 'elasticsearch-extensions'
 end
 
 group :development do

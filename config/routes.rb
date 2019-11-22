@@ -11,5 +11,6 @@ Rails.application.routes.draw do
       post :favorite, controller: :favorites, action: :create
     end
     resources :cookbooks, only: [:create]
+    resource :search, controller: :search, only: [:create]
   end
 end
