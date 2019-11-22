@@ -2,8 +2,11 @@
 
 RSpec.describe 'GET specific recipe' do
   describe 'user can view a specific original recipe' do
-    let(:user) { create(:user) }
-    let(:user_credentials) { user.create_new_auth_token }
+    let(:user_1) { create(:user) }
+    let(:user_2) { create(:user) }
+    let(:user_3) { create(:user) }
+
+    let(:user_credentials) { user_1.create_new_auth_token }
     let!(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(user_credentials) }
     let(:recipe) do
       create(:recipe,
@@ -13,9 +16,9 @@ RSpec.describe 'GET specific recipe' do
     end
     
     before do
-      create(:rating, score: 1, user_id: user.id, recipe_id: recipe.id)
-      create(:rating, score: 3, user_id: user.id, recipe_id: recipe.id)
-      create(:rating, score: 5, user_id: user.id, recipe_id: recipe.id)
+      create(:rating, score: 1, user_id: user_1.id, recipe_id: recipe.id)
+      create(:rating, score: 3, user_id: user_2.id, recipe_id: recipe.id)
+      create(:rating, score: 5, user_id: user_3.id, recipe_id: recipe.id)
       get "/v1/recipes/#{recipe.id}", headers: headers
     end
 
@@ -43,6 +46,9 @@ RSpec.describe 'GET specific recipe' do
       expect(response_json['recipe']['rating']).to eq 3
     end
     
+    it 'Recipe has a user_rating' do
+      expect(response_json['recipe']['user_rating']).to eq 1
+    end
   end
 
 
@@ -72,6 +78,10 @@ RSpec.describe 'GET specific recipe' do
 
     it 'Recipe has a title' do
       expect(response_json['recipe']['title']).to eq forked_recipe.title
+    end
+
+    it 'Recipe does not have a user_rating' do
+      expect(response_json['recipe']['user_rating']).to eq nil
     end
 
     it "Recipe has a parent title sent with it" do
