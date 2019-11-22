@@ -7,7 +7,7 @@ module BookGeneratorService
   include Rails.application.routes.url_helpers
 
   def self.generate_book(recipes)
-    template = Rails.public_path.join('fh_cover.jpeg')
+    template = Rails.public_path.join('fh_cover2.jpeg')
 
     pdf_options = {
       page_size: 'A4', page_layout: :landscape,
@@ -42,22 +42,22 @@ module BookGeneratorService
 
     # Cover
     pdf.canvas do
-      pdf.move_down 210
+      pdf.move_down 100
       pdf.font 'Condiment'
       pdf.text 'Social Cooking',
-               size: 110, align: :center, color: 'FCFCFC'
+               size: 110, align: :center, color: '111111'
       pdf.move_down -35
       pdf.text 'by',
-               size: 40, align: :center, color: 'FCFCFC'
+               size: 40, align: :center, color: '111111'
       pdf.move_down 60
       pdf.font 'AbrilFatface'
       pdf.text 'FoodHub',
-               size: 78, align: :center, color: 'FCFCFC'
+               size: 78, align: :center, color: '111111'
       pdf.move_down -20
       pdf.font 'Futura'
       pdf.text 'www.foodhub.recipes',
                size: 22, style: :medium, leading: 10,
-               character_spacing: 1, align: :center, color: 'FCFCFC'
+               character_spacing: 1, align: :center, color: '111111'
     end
     # insert blank page
     pdf.start_new_page left_margin: 150, right_margin: 50
