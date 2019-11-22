@@ -14,6 +14,7 @@ class Recipe < ApplicationRecord
       title: params[:title],
       ingredients: params[:ingredients],
       directions: params[:directions],
+      description: params[:description],
       user_id: user.id,
       parent_id: self.id
     }
