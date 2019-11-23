@@ -1,8 +1,8 @@
 class Recipe < ApplicationRecord
   validates_presence_of :title, :ingredients, :directions, :description
-  validates_length_of :ingredients, maximum: 500
+  validates_length_of :ingredients, maximum: 5000
   validates_length_of :directions, maximum: 5000
-  validates_length_of :description, maximum: 500
+  validates_length_of :description, maximum: 5000
   has_one_attached :image
   belongs_to :user
   belongs_to :parent, class_name: 'Recipe', optional: true

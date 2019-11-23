@@ -1,16 +1,15 @@
 Recipe.destroy_all
-User.delete_all
-
+User.destroy_all
 
 user = User.create(email: 'user@mail.com', password: 'password', name: 'User_1')
 second_user = User.create(email: 'user_2@mail.com', password: 'password', name: 'User_2')
 thomas = User.create(email: 'thomas@craftacademy.se', password: 'password', name: 'Thomas')
 sverrir = User.create(email: 'sverrir@mail.com', password: 'password', name: 'Sverrir')
 clarissa = User.create(email: 'clarissa@mail.com', password: 'password', name: 'Clarissa')
-yasmine = User.create(email: 'Yasmine@mail.com', password: 'password', name: 'Yasmine')
+yasmine = User.create(email: 'yasmine@mail.com', password: 'password', name: 'Yasmine')
 oliver = User.create(email: 'oliver@mail.com', password: 'password', name: 'Oliver')
 
-bigos = Recipe.create(
+bigos = Recipe.create(  
   title: 'Polish Bigos',
   description: 'The national Polish dish Bigos is also Known as Hunter\'s Stew. There are so many recipes for bigos, it is hard to know what is best. Some bigos recipes add tomato paste, some do not. Some have mushrooms, others don\'t.
   
@@ -44,7 +43,7 @@ bigos = Recipe.create(
   1 cup dry red wine
   4 cups beef stock
   1 cup chopped prunes',
-  user: thomas
+  user_id: thomas.id
 )
 
 file = URI.open('https://www.corriecooks.com/wp-content/uploads/2018/09/Instant-Pot-Bigos.jpg')
@@ -76,12 +75,12 @@ cccookies = Recipe.create(
     4. Form the cookie dough into balls, about 2 tablespoons of dough per cookie. Place on prepared baking sheet, about 2 inches apart. Sprinkle with sea salt, if desired. Bake cookies fhttps://images.pexels.com/photos/2161638/pexels-photo-2161638.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260or 10-12 minutes or until the edges are slightly golden brown. Remove from oven and let cookies cool on the baking sheet for 2-3 minutes. Transfer to a wire cooling rack and cool completely.
 
     5. After the brownies cool, chop them into small chunks for the cookies. You can also keep the brownies in the freezer. Defrost brownies before using in the cookies. The cookies will keep in an airtight container for 3-4 days. You can also freeze the cookies!',
-  user: sverrir
+  user_id: yasmine.id
 )
 
 file2 = URI.open('https://images.pexels.com/photos/2377477/pexels-photo-2377477.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')
 
-cccookie.image.attach(io: file2, filename: 'cccookie.jpeg')
+cccookies.image.attach(io: file2, filename: 'cccookie.jpeg')
 
 
 gcsandwich = Recipe.create(
@@ -99,7 +98,7 @@ gcsandwich = Recipe.create(
     3. Place cheese on the bottom slice and form sandwich.
 
     4. Place in pan and fry until golden brown on each side.',
-  user: clarissa
+    user_id: clarissa.id
 )
 
 file3 = URI.open('https://image.businessinsider.com/5ad50664146e712b008b4ac2?width=1100&format=jpeg&auto=webp')
@@ -144,7 +143,7 @@ roastturkey = Recipe.create(
     7. Remove the turkey from the oven, cover with a doubled sheet of aluminum foil, and allow to rest in a warm area for 10 to 15 minutes before slicing. Pour the pan juices, about 3 cups, into a saucepan and set aside. Skim off the turkey fat from the pan juices, reserving about 2 tablespoons.
     
     8. Heat 2 tablespoons of the turkey fat and 1 tablespoon butter in a saucepan over medium heat. Transfer the onion from the roasting pan into the skillet. Cook and stir until the onion is browned, about 5 minutes, then stir in the flour. Continue to cook and stir for about 5 minutes more; whisk in 4 cups of the skimmed turkey stock and the reserved pan juices until smooth; skim off any foam. Stir in the balsamic vinegar. Simmer until the gravy is thickened, whisking constantly, about 10 minutes. Stir in 1 tablespoon of chopped sage, and season to taste with salt and black pepper.',
-  user: yasmine
+    user_id: yasmine.id
 )
 
 file4 = URI.open('https://images.pexels.com/photos/2673353/pexels-photo-2673353.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -182,7 +181,7 @@ pumpkinwaffles = Recipe.create(
     3. Stir the flour mixture and 1/4 cup melted butter to the pumpkin mixture, stirring just to combine. Use a whisk or rubber spatula to fold 1/3 of the egg whites into the batter, stirring gently until incorporated. Fold in the remaining egg whites. Cook waffles according to manufacturer\'s instructions.
 
     4. To make the syrup, stir together the sugar, cornstarch, and cinnamon in a saucepan. Stir in the apple cider and lemon juice. Cook over medium heat until mixture begins to boil; boil until the syrup thickens. Remove from heat and stir in the 2 tablespoons of butter until melted. Serve warm.',
-    user: sverrir
+    user_id: sverrir.id
 )
 
 file5 = URI.open('https://images.pexels.com/photos/2074108/pexels-photo-2074108.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -210,7 +209,7 @@ pigeon = Recipe.create(
     3. Add the wine and stock, season generously, then increase the heat and bring to the boil. Lower the heat, stir in the parsley, then simmer with the lid on for 4 hours. Check on it now and again, adding an extra splash of water, if needed.
 
     4. When the pigeon is nearly ready, use a fork to shred the meat off the bone - it should fall off easily. Serve with potatoes or crusty bread - be careful of the bones!',
-    user: clarissa
+    user_id: clarissa.id
 )
 
 file6 = URI.open('https://images.pexels.com/photos/2532442/pexels-photo-2532442.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -233,7 +232,7 @@ carbonara = Recipe.create(
     3. The fried guanciale is then added and the mixture is tossed creating a rich creamy sauce with bits of meat spread throughout.
     
     4. Although various shapes of pasta can be used the raw egg can only cook properly with a shape that has a sufficiently large ratio of surface area to volume such as the long thin types fettucine linguine or spaghetti.',
-    user: yasmine
+    user_id: yasmine.id
 )
 
 file7 = URI.open('https://images.pexels.com/photos/1435898/pexels-photo-1435898.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -270,7 +269,7 @@ suya = Recipe.create(
     6. Baste the meat with a little oil, sea salt and black pepper before putting it under the grill or on the griddle - it should sizzle but do not move it! Turn only every 2 minutes, until each side is seared through (for medium-rare) or every 3 minutes on each side for well done.
 
     7. Allow to rest for 2 minutes, then scatter over the reserved peanuts and a small pinch of chilli powder. Tear over the coriander leaves, then serve with a fresh seasonal salad. Boom! Summer spice in your mouth!',
-    user: sverrir
+    user_id: sverrir.id
 )
 
 file8 = URI.open('https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -290,7 +289,7 @@ fruitcake = Recipe.create(
     1 lemon
     3 passionfruits250 grams of blueberries
     150 grams of raspberries',
-  description: '
+  directions: '
     1. Preheat oven to 250 degrees celcius 
     
     2. Crush the cookies and mix with the melted butter
@@ -300,7 +299,7 @@ fruitcake = Recipe.create(
     4. Cook for 20 minutes 
     
     5. Decorate with berries, best eaten cooled down',
-  user: clarissa
+    user_id: clarissa.id
 )
 
 file9 = URI.open('https://images.pexels.com/photos/221068/pexels-photo-221068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -321,7 +320,7 @@ mash = Recipe.create(
     2. Place the potatoes into a large pot, and cover with salted water. Bring to a boil, reduce heat to medium-low, cover, and simmer until tender, 20 to 25 minutes. Drain, and return the potatoes to the pot. Turn heat to high, and allow the potatoes to dry for about 30 seconds. Turn off the heat.
 
     3. Mash the potatoes with a potato masher twice around the pot, then add the butter and milk. Continue to mash until smooth and fluffy. Whisk in the salt and black pepper until evenly distributed, about 15 seconds.',
-    user: sverrir
+    user_id: sverrir.id
 )
 
 file10 = URI.open('https://images.pexels.com/photos/221068/pexels-photo-221068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -349,7 +348,7 @@ spicy = Recipe.create(
     2. Meanwhile, cook the quinoa in the chicken stock for 15 mins until tender, adding the apricots and lentils for the final 5 mins. Drain and place into a large bowl with the chicken, toss together.
     
     3. While the quinoa is cooking, heat the oil in a large frying pan and soften the onions for 10-15 mins. Toss the onions into the quinoa with the coriander and some seasoning, then mix well.',
-    user: clarissa
+    user_id: clarissa.id
 )
 
 file11 = URI.open('https://images.pexels.com/photos/221068/pexels-photo-221068.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -367,7 +366,7 @@ milkshake = Recipe.create(
    1. Mix all ingredients together in your mixer
    
    2. Add some brown sugar or extra ice cream for extra yumminess!',
-  user: clarissa
+   user_id: clarissa.id
 )
 
 file12 = URI.open('https://images.pexels.com/photos/845552/pexels-photo-845552.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
@@ -393,7 +392,7 @@ daiquiri = Recipe.create(
     4. Shake hard and strain into a martini glass.
     
     5. Garnish with a slice of passion fruit and serve.',
-  user: yasmine
+    user_id: yasmine.id
 )
 
 file13 = URI.open('https://images.pexels.com/photos/1337824/pexels-photo-1337824.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')
