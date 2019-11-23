@@ -1,6 +1,6 @@
 
-User.delete_all
 
+Recipe.destroy_all
 
 user = User.create(email: 'user@mail.com', password: 'password', name: 'User_1')
 second_user = User.create(email: 'user_2@mail.com', password: 'password', name: 'User_2')
