@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/noellabo/chewy.git
+  revision: bce53720beaab36d0cb8cfbd0bc98fb0e44ddaf0
+  branch: es6-client-compatibility-workaround-for-es7-for-chewy-v5.1.0
+  specs:
+    chewy (5.1.0)
+      activesupport (>= 4.0)
+      elasticsearch (>= 7.0.0)
+      elasticsearch-dsl
+      faraday (>= 0.17.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -89,10 +100,6 @@ GEM
     byebug (11.0.1)
     case_transform (0.2)
       activesupport
-    chewy (5.1.0)
-      activesupport (>= 4.0)
-      elasticsearch (>= 2.0.0)
-      elasticsearch-dsl
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     coveralls (0.8.23)
@@ -304,7 +311,7 @@ DEPENDENCIES
   active_model_serializers
   aws-sdk-s3
   bootsnap (>= 1.4.2)
-  chewy
+  chewy!
   coveralls
   devise_token_auth
   elasticsearch-extensions

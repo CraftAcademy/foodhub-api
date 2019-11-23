@@ -18,7 +18,7 @@ gem 'rails', '~> 6.0.0'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'prawn'
-gem 'chewy'
+gem 'chewy', git: 'https://github.com/noellabo/chewy.git', branch: 'es6-client-compatibility-workaround-for-es7-for-chewy-v5.1.0'
 
 group :development, :test do
   gem 'coveralls', require: false
