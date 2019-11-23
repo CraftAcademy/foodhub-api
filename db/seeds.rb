@@ -1,4 +1,4 @@
-
+Recipe.destroy_all
 User.delete_all
 
 
