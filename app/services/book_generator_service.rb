@@ -113,7 +113,7 @@ module BookGeneratorService
           pdf.font 'Futura'
           pdf.fill_color 'FCFCFC'
           pdf.stroke_color '383838'
-          pdf.text 'Every recipe has a history. Here we want to present a little bit of background about this one',
+          pdf.text recipe.description,
                    size: 14, style: :medium,
                    leading: 10, character_spacing: 0, align: :left,
                    mode: :fill
