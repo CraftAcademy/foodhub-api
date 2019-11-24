@@ -52,7 +52,7 @@ RSpec.describe 'Update specific recipe', type: :request do
       put "/v1/recipes/#{recipe.id}", params: {
         recipe: {
           title: 'New Cookies',
-          ingredients: 'New cookie mix, more chocolate.' * 20,
+          ingredients: 'New cookie mix, more chocolate.' * 200,
           directions: 'Make the new cookies.'
         }
       }, headers: creator_headers
@@ -63,7 +63,7 @@ RSpec.describe 'Update specific recipe', type: :request do
     end
 
     it 'returns error message' do
-      expect(response_json['error_message']).to eq 'Ingredients is too long (maximum is 500 characters)'
+      expect(response_json['error_message']).to eq 'Ingredients is too long (maximum is 5000 characters)'
     end
   end
 
