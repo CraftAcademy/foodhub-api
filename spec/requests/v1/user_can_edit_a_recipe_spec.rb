@@ -52,7 +52,7 @@ RSpec.describe 'Update specific recipe', type: :request do
       put "/v1/recipes/#{recipe.id}", params: {
         recipe: {
           title: 'New Cookies',
-          ingredients: 'New cookie mix, more chocolate.' * 200,
+          ingredients: 'New cookie mix, more chocolate.' * 1000,
           directions: 'Make the new cookies.'
         }
       }, headers: creator_headers
