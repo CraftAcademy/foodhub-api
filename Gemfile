@@ -11,7 +11,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise_token_auth'
 gem 'mini_magick'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'pundit'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.0.0'
