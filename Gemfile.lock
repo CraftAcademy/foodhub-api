@@ -149,7 +149,7 @@ GEM
     hashery (2.1.2)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     json (2.3.1)
     json-schema (2.8.1)
       addressable (>= 2.4)
